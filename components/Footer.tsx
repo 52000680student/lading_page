@@ -8,9 +8,9 @@ const Footer: React.FC = () => {
   const handleSocialClick = (platform: string) => {
     const url = window.location.href;
     const title = document.title;
-    
+
     let shareUrl = '';
-    switch(platform) {
+    switch (platform) {
       case 'facebook':
         shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
         break;
@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
       default:
         return;
     }
-    
+
     if (shareUrl) {
       window.open(shareUrl, '_blank', 'width=600,height=400');
     }
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-xl font-bold mb-6 text-white">About Us</h3>
             <p className="text-gray-300 leading-relaxed">
-              MedTest Pro is a leading provider of convenient, reliable medical testing services. 
+              MedTest Pro is a leading provider of convenient, reliable medical testing services.
               We're committed to making healthcare accessible and convenient for everyone.
             </p>
           </div>
@@ -46,57 +46,57 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-xl font-bold mb-6 text-white">Quick Links</h3>
             <ul className="space-y-3">
-              <li><a href="#services" className="text-gray-300 hover:text-primary-400 transition-colors">Our Services</a></li>
-              <li><a href="#how-it-works" className="text-gray-300 hover:text-primary-400 transition-colors">How It Works</a></li>
-              <li><a href="#about" className="text-gray-300 hover:text-primary-400 transition-colors">About Us</a></li>
-              <li><a href="#contact" className="text-gray-300 hover:text-primary-400 transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">FAQs</a></li>
+              <li><a href="#services" className="text-gray-300 hover:text-primary-400 transition-colors">Gói xét nghiệm</a></li>
+              {/* <li><a href="#how-it-works" className="text-gray-300 hover:text-primary-400 transition-colors">How It Works</a></li> */}
+              <li><a href="#about" className="text-gray-300 hover:text-primary-400 transition-colors">Về Med Nova</a></li>
+              <li><a href="#contact" className="text-gray-300 hover:text-primary-400 transition-colors">Liên hệ</a></li>
+              {/* <li><a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">Pricing</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">FAQs</a></li> */}
             </ul>
           </div>
 
           {/* Contact Us */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-white">Contact Us</h3>
+            <h3 className="text-xl font-bold mb-6 text-white">Liên hệ MedNova</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                <p className="text-gray-300">123 Health Street, Medical District, City 12345</p>
+                <p className="text-gray-300">STH 39.11 Đường Thích Quảng Đức, Hà Quang 1, phường Phước Hải ,Nha Trang , Khánh Hòa</p>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                <p className="text-gray-300">+1 (555) 123-4567</p>
+                <p className="text-gray-300">0843 179 579</p>
               </div>
-              <div className="flex items-center gap-3">
+              {/* <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary-400 flex-shrink-0" />
                 <p className="text-gray-300">info@medtestpro.com</p>
-              </div>
+              </div> */}
             </div>
           </div>
 
           {/* Follow Us */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-white">Follow Us</h3>
+            <h3 className="text-xl font-bold mb-6 text-white">Theo dõi MedNova</h3>
             <div className="flex gap-4">
-              <button 
+              <button
                 onClick={() => handleSocialClick('facebook')}
                 className="w-11 h-11 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-primary-500 hover:-translate-y-1 transition-all duration-300"
               >
                 <Facebook className="w-5 h-5" />
               </button>
-              <button 
+              <button
                 onClick={() => handleSocialClick('twitter')}
                 className="w-11 h-11 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-primary-500 hover:-translate-y-1 transition-all duration-300"
               >
                 <Twitter className="w-5 h-5" />
               </button>
-              <button 
+              <button
                 onClick={() => handleSocialClick('instagram')}
                 className="w-11 h-11 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-primary-500 hover:-translate-y-1 transition-all duration-300"
               >
                 <Instagram className="w-5 h-5" />
               </button>
-              <button 
+              <button
                 onClick={() => handleSocialClick('linkedin')}
                 className="w-11 h-11 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-primary-500 hover:-translate-y-1 transition-all duration-300"
               >
@@ -109,11 +109,11 @@ const Footer: React.FC = () => {
         {/* Footer Bottom */}
         <div className="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-300">
-            &copy; {currentYear} MedTest Pro. All rights reserved.
+            &copy; {currentYear} bản quyền thuộc về MedNova
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">Terms of Service</a>
+            <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">Chính sách bảo mật</a>
+            <a href="#" className="text-gray-300 hover:text-primary-400 transition-colors">Điều khoản dịch vụ</a>
           </div>
         </div>
       </div>

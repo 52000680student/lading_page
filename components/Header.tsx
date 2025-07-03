@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import { NavItem } from '@/types';
 
 const navItems: NavItem[] = [
-  { href: '#services', label: 'Services' },
-  { href: '#how-it-works', label: 'How it Works' },
-  { href: '#about', label: 'About Us' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/', label: 'Trang chủ' },
+  { href: '/services', label: 'Gói xét nghiệm' },
+  { href: '#about', label: 'Về Med Nova' },
+  { href: '#contact', label: 'Liên hệ' },
 ];
 
 const Header: React.FC = () => {
@@ -38,21 +39,21 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/98 shadow-lg backdrop-blur-custom' 
-          : 'bg-white/95 shadow-md backdrop-blur-custom'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-white/98 shadow-lg backdrop-blur-custom'
+        : 'bg-white/95 shadow-md backdrop-blur-custom'
+        }`}
     >
       <div className="container">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img 
-              src="https://via.placeholder.com/120x40/00A0A0/FFFFFF?text=MedTest+Pro" 
-              alt="MedTest Pro" 
+            <img
+              src="/images/logos/logo_trans.png"
+              alt="MedNova"
               className="h-10 w-auto"
+              style={{ width: '200px', height: '80px' }}
             />
           </div>
 
@@ -61,18 +62,28 @@ const Header: React.FC = () => {
             <ul className="flex items-center space-x-8">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a 
-                    href={item.href}
-                    className="text-dark-grey hover:text-primary-500 font-medium transition-colors duration-300"
-                    onClick={closeMenu}
-                  >
-                    {item.label}
-                  </a>
+                  {item.href.startsWith('#') ? (
+                    <a
+                      href={item.href}
+                      className="text-dark-grey hover:text-primary-500 font-medium transition-colors duration-300"
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="text-dark-grey hover:text-primary-500 font-medium transition-colors duration-300"
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
             <Button onClick={handleBookTest}>
-              Book a Test
+              Đăng kí xét nghiệm
             </Button>
           </nav>
 
@@ -91,26 +102,35 @@ const Header: React.FC = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
           <nav className="py-4 border-t border-gray-200">
             <ul className="space-y-4">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a 
-                    href={item.href}
-                    className="block text-dark-grey hover:text-primary-500 font-medium transition-colors duration-300"
-                    onClick={closeMenu}
-                  >
-                    {item.label}
-                  </a>
+                  {item.href.startsWith('#') ? (
+                    <a
+                      href={item.href}
+                      className="block text-dark-grey hover:text-primary-500 font-medium transition-colors duration-300"
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="block text-dark-grey hover:text-primary-500 font-medium transition-colors duration-300"
+                      onClick={closeMenu}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
             <div className="mt-4">
               <Button onClick={handleBookTest} className="w-full">
-                Book a Test
+                Đăng kí xét nghiệm
               </Button>
             </div>
           </nav>

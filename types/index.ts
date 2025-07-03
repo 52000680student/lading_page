@@ -56,4 +56,19 @@ export interface AnimatedSectionProps {
   children: any;
   className?: string;
   delay?: number;
-} 
+}
+
+export interface TestPackage {
+  id: string;
+  name: string;
+  category: string;
+  gender?: string;
+  targetGroup?: string;
+  price: number;
+  originalPrice?: number;
+  indicators: number;
+  resultTime: string;
+  icon: string;
+  featured: boolean;
+  description?: string;
+}

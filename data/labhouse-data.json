@@ -1,0 +1,465 @@
+{
+  "companyInfo": {
+    "name": "LabHouse",
+    "fullName": "CÔNG TY TNHH LABHOUSE VIỆT NAM",
+    "businessLicense": "0109289647",
+    "licenseIssuer": "Sở Kế hoạch và Đầu tư thành phố Hà Nội",
+    "licenseDate": "30/07/2020",
+    "medicalLicense": "2287/HNO - GPHĐ",
+    "medicalLicenseIssuer": "Sở y tế thành phố Hà Nội",
+    "medicalLicenseDate": "02/07/2021",
+    "certification": "ISO 15189:2022",
+    "tagline": "TRUNG TÂM XÉT NGHIỆM Y KHOA LABHOUSE",
+    "vision": "LabHouse hướng đến trở thành giải pháp quản trị sức khỏe toàn diện cho gia đình Việt.",
+    "mission": "Tại LabHouse chúng tôi hướng đến sứ mệnh: Vì con người Việt Nam khỏe mạnh hơn, hạnh phúc hơn.",
+    "coreValues": [
+      {
+        "name": "Công nghệ",
+        "description": "Cải tiến và đổi mới liên tục trong vận hành, trang thiết bị và cơ sở vật chất, bắt nhịp với sự phát triển của y tế thế giới."
+      },
+      {
+        "name": "Tài năng",
+        "description": "Luôn luôn cập nhật và nâng cao chất lượng chuyên môn để mỗi con người LabHouse phải là một chuyên gia thực sự."
+      },
+      {
+        "name": "Tận tâm",
+        "description": "Dịch vụ luôn lấy khách hàng làm trọng tâm, đặt lợi ích của khách hàng lên hàng đầu."
+      }
+    ],
+    "infrastructure": "Trung tâm xét nghiệm theo tiêu chuẩn quốc tế với hệ thống máy móc và trang thiết bị thuộc hàng TOP về chất lượng, được nhập khẩu từ các hãng hàng đầu trên thế giới: Siemen, Biorad, Nihon Kohden... cho công suất chạy lên đến hàng nghìn mẫu mỗi ngày."
+  },
+  "contact": {
+    "hotline": "1800 6271",
+    "email": "dvkh@labhouse.vn",
+    "workingHours": {
+      "days": "Thứ 2 đến Chủ Nhật",
+      "time": "7h00 - 21h00"
+    },
+    "locations": [
+      {
+        "id": "CS1",
+        "address": "Tầng 2, tòa D - Vinaconex 2, Đại Kim, Hoàng Mai, TP Hà Nội",
+        "hours": "8h00 - 21h00"
+      },
+      {
+        "id": "CS2", 
+        "address": "94 An Bình, Phường 5, Quận 5, TP Hồ Chí Minh",
+        "hours": "7h00 - 20h00"
+      }
+    ]
+  },
+  "team": [
+    {
+      "name": "Hồ Văn Cư",
+      "position": "Giám đốc chuyên môn",
+      "degree": "BSCKII. Thạc sỹ xét nghiệm",
+      "experience": "Nguyên chủ nhiệm Khoa Sinh học phóng xạ và Thực nghiệm - Viện Y học phóng xạ và U bướu quân đội",
+      "image": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/271180/anh-bac-si-02.jpg"
+    },
+    {
+      "name": "Nguyễn Thị Dung",
+      "position": "Giám đốc vận hành",
+      "experience": "Quản lý chất lượng, 13 năm kinh nghiệm trong ngành xét nghiệm tại Bệnh viện Phổi, Bệnh viện Đa khoa Quốc tế Vinmec.",
+      "image": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/167/a1.png"
+    }
+  ],
+  "testPackages": {
+    "generalCheckup": [
+      {
+        "id": "general-female-basic",
+        "name": "Gói xét nghiệm tổng quát cho Nữ - CƠ BẢN",
+        "category": "Kiểm tra tổng quát",
+        "gender": "Nữ",
+        "price": 662000,
+        "indicators": 15,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000790/Images/icon-chien-dich-01.png",
+        "featured": true
+      },
+      {
+        "id": "general-male-basic",
+        "name": "Gói xét nghiệm tổng quát cho Nam - CƠ BẢN",
+        "category": "Kiểm tra tổng quát",
+        "gender": "Nam",
+        "price": 662000,
+        "indicators": 15,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000793/Images/tong-quat-cb.png",
+        "featured": true
+      },
+      {
+        "id": "premium-female",
+        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Labhouse Premium cho Nữ",
+        "category": "Kiểm tra tổng quát",
+        "gender": "Nữ",
+        "price": 1515000,
+        "indicators": 20,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000792/Images/TQ%20nang%20cao.png",
+        "featured": true
+      },
+      {
+        "id": "premium-male",
+        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Labhouse Premium cho Nam",
+        "category": "Kiểm tra tổng quát", 
+        "gender": "Nam",
+        "price": 1615000,
+        "indicators": 19,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000795/Images/tong-quat-nc.png",
+        "featured": true
+      },
+      {
+        "id": "premium-children",
+        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Labhouse Premium cho trẻ em",
+        "category": "Kiểm tra tổng quát",
+        "targetGroup": "Trẻ em",
+        "price": 1699000,
+        "indicators": 21,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000804/Images/tong%20quat%20tre%20em%20nc.png",
+        "featured": true
+      }
+    ],
+    "reproductiveHealth": [
+      {
+        "id": "mom-care",
+        "name": "Gói xét nghiệm kiểm tra thể trạng sau sinh Mom Care",
+        "category": "Sức khỏe sinh sản",
+        "targetGroup": "Phụ nữ sau sinh",
+        "price": 399000,
+        "indicators": 4,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001976/Images/icon%20new-06.png",
+        "featured": true
+      },
+      {
+        "id": "hpv-plus",
+        "name": "Gói xét nghiệm HPV plus (HPV, CA 125, ABO)",
+        "category": "Sức khỏe sinh sản",
+        "price": 500000,
+        "indicators": 3,
+        "resultTime": "Trong vòng 24-48 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/002060/Images/icon-HPV-01.png",
+        "featured": true
+      },
+      {
+        "id": "hpv-realtime",
+        "name": "Gói xét nghiệm HPV Realtime PCR - Món quà của sự thấu hiểu",
+        "category": "Sức khỏe sinh sản",
+        "price": 375000,
+        "indicators": 1,
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/003565/Images/icon-HPV-01.png",
+        "featured": true
+      },
+      {
+        "id": "ovarian-cancer",
+        "name": "Xét nghiệm dấu ấn phát hiện sớm ung thư buồng trứng",
+        "category": "Sức khỏe sinh sản",
+        "price": 150000,
+        "indicators": 1,
+        "resultTime": "Trong vòng 72 giờ",
+        "featured": true
+      },
+      {
+        "id": "cervical-ovarian-cancer",
+        "name": "Gói xét nghiệm tầm soát UT cổ tử cung và buồng trứng",
+        "category": "Sức khỏe sinh sản",
+        "price": 1200000,
+        "indicators": 5,
+        "resultTime": "Trong vòng 72 giờ",
+        "featured": true
+      },
+      {
+        "id": "reproductive-health-male",
+        "name": "Gói xét nghiệm kiểm tra sức khoẻ sinh sản cho Nam",
+        "category": "Sức khỏe sinh sản",
+        "gender": "Nam",
+        "price": 1585000,
+        "originalPrice": 2295000,
+        "indicators": 22,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000765/Images/sinh%20san%20nam.png",
+        "featured": true
+      },
+      {
+        "id": "reproductive-health-female",
+        "name": "Gói xét nghiệm kiểm tra sức khoẻ sinh sản cho Nữ",
+        "category": "Sức khỏe sinh sản",
+        "gender": "Nữ",
+        "price": 2325000,
+        "indicators": 26,
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000916/Images/sinh%20san%20nu%20nc.png",
+        "featured": true
+      }
+    ],
+    "lifestyleHabits": [
+      {
+        "id": "food-sensitive",
+        "name": "Gói xét nghiệm chỉ số dinh dưỡng Food Sensitive",
+        "category": "Thói quen sinh hoạt",
+        "price": 499000,
+        "indicators": 11,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001971/Images/icon%20new-01.png",
+        "featured": true
+      },
+      {
+        "id": "body-inside",
+        "name": "Gói xét nghiệm chỉ số thể chất Body Inside",
+        "category": "Thói quen sinh hoạt",
+        "price": 525000,
+        "indicators": 12,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001972/Images/icon%20new-02.png",
+        "featured": true
+      },
+      {
+        "id": "diet-support",
+        "name": "Gói xét nghiệm cân bằng chuyển hoá Diet Support",
+        "category": "Thói quen sinh hoạt",
+        "price": 499000,
+        "indicators": 11,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001973/Images/icon%20new-03.png",
+        "featured": true
+      },
+      {
+        "id": "nano-secret-female",
+        "name": "Gói xét nghiệm tầm soát sức khoẻ thầm kín Nano Secret cho Nữ",
+        "category": "Thói quen sinh hoạt",
+        "gender": "Nữ",
+        "price": 487000,
+        "indicators": 4,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001974/Images/icon%20new-04.png",
+        "featured": true
+      },
+      {
+        "id": "nano-secret-male",
+        "name": "Gói xét nghiệm tầm soát sức khoẻ thầm kín Nano Secret cho Nam",
+        "category": "Thói quen sinh hoạt",
+        "gender": "Nam",
+        "price": 490000,
+        "indicators": 4,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001975/Images/icon%20new-05.png",
+        "featured": true
+      },
+      {
+        "id": "std-pcr",
+        "name": "Gói xét nghiệm Realtime PCR 7 tác nhân gây bệnh đường sinh dục (STD)",
+        "category": "Thói quen sinh hoạt",
+        "price": 1960000,
+        "indicators": 2,
+        "resultTime": "Trong vòng 24-48 giờ",
+        "featured": true
+      },
+      {
+        "id": "alcohol-health",
+        "name": "Gói xét nghiệm kiểm tra sức khoẻ cho người thường xuyên sử dụng rượu bia",
+        "category": "Thói quen sinh hoạt",
+        "targetGroup": "Người uống rượu bia",
+        "price": 399000,
+        "originalPrice": 583000,
+        "indicators": 15,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000779/Images/ruou-bia.png",
+        "featured": true
+      },
+      {
+        "id": "stress-fatigue",
+        "name": "Gói xét nghiệm kiểm tra sức khoẻ cho người stress, hụt hơi, mệt mỏi không rõ nguyên nhân",
+        "category": "Thói quen sinh hoạt",
+        "targetGroup": "Người stress, mệt mỏi",
+        "price": 499000,
+        "indicators": 10,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000739/Images/met%20moi%20k%20ro%20nguyen%20nhan.png",
+        "featured": true
+      },
+      {
+        "id": "smoker-health",
+        "name": "Gói xét nghiệm kiểm tra sức khoẻ cho người hút thuốc lá",
+        "category": "Thói quen sinh hoạt",
+        "targetGroup": "Người hút thuốc",
+        "price": 499000,
+        "indicators": 10,
+        "resultTime": "Trong vòng 2 giờ",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000769/Images/thuoc%20la.png",
+        "featured": true
+      }
+    ]
+  },
+  "testCategories": [
+    {
+      "id": "general-checkup",
+      "name": "Kiểm tra tổng quát",
+      "url": "https://labhouse.vn/goi-xet-nghiem/kiem-tra-tong-quat-c193",
+      "description": "LabHouse có 5 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+    },
+    {
+      "id": "organ-symptoms",
+      "name": "Cơ quan và triệu chứng", 
+      "url": "https://labhouse.vn/goi-xet-nghiem/co-quan-va-trieu-chung-c195"
+    },
+    {
+      "id": "reproductive-health",
+      "name": "Sức khỏe sinh sản",
+      "url": "https://labhouse.vn/goi-xet-nghiem/suc-khoe-sinh-san-c194",
+      "description": "LabHouse có 7 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+    },
+    {
+      "id": "lifestyle-habits",
+      "name": "Thói quen sinh hoạt",
+      "url": "https://labhouse.vn/goi-xet-nghiem/thoi-quen-sinh-hoat-c223",
+      "description": "LabHouse có 9 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+    }
+  ],
+  "process": [
+    {
+      "step": 1,
+      "title": "Đăng ký",
+      "description": "Đăng ký thông tin và chọn gói xét nghiệm phù hợp",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/10/Register.png"
+    },
+    {
+      "step": 2,
+      "title": "Lấy mẫu",
+      "description": "Lấy mẫu tại nhà hoặc tại trung tâm",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/11/Collect%20sample.png"
+    },
+    {
+      "step": 3,
+      "title": "Nhận kết quả",
+      "description": "Nhận kết quả xét nghiệm chính xác và nhanh chóng",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/12/Result.png"
+    },
+    {
+      "step": 4,
+      "title": "Nhận tư vấn",
+      "description": "Tư vấn từ đội ngũ bác sĩ chuyên nghiệp",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/13/Consult.png"
+    }
+  ],
+  "advantages": [
+    {
+      "id": "integrated-records",
+      "title": "Tích hợp hồ sơ sức khỏe điện tử của cả gia đình trên cùng một tài khoản, dễ dàng theo dõi",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/14/1.png",
+      "order": 1
+    },
+    {
+      "id": "comprehensive-consultation",
+      "title": "Tư vấn toàn diện các giải pháp chăm sóc sức khỏe dựa trên chỉ số",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/15/ldxnlh2x.png",
+      "order": 2
+    },
+    {
+      "id": "home-sampling",
+      "title": "Lấy mẫu miễn phí tại nhà, tiết kiệm thời gian, phòng tránh nguy cơ lây nhiễm chéo",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/16/3.png",
+      "order": 3
+    },
+    {
+      "id": "high-tech",
+      "title": "Ứng dụng công nghệ cao trong vận hành, đảm bảo tính chính xác, bảo mật cao",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/17/4.png",
+      "order": 4
+    },
+    {
+      "id": "iso-certification",
+      "title": "Đạt chứng chỉ ISO 15189:2022 đảm bảo cung cấp kết quả xét nghiệm một cách chính xác và tin cậy",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/18/5.png",
+      "order": 5
+    },
+    {
+      "id": "expert-team",
+      "title": "Đội ngũ bác sĩ, kỹ thuật viên với chuyên môn hàng đầu trong ngành",
+      "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/19/6.png",
+      "order": 6
+    }
+  ],
+  "navigation": {
+    "testPackages": "GÓI XÉT NGHIỆM",
+    "faq": "HỎI ĐÁP",
+    "healthInfo": "THÔNG TIN SỨC KHỎE",
+    "about": "VỀ LABHOUSE"
+  },
+  "faqCategories": [
+    {
+      "name": "Đăng kí xét nghiệm",
+      "url": "https://labhouse.vn/faq/dang-ki-xet-nghiem-c122"
+    },
+    {
+      "name": "Lấy mẫu xét nghiệm",
+      "url": "https://labhouse.vn/faq/lay-mau-xet-nghiem-c123"
+    },
+    {
+      "name": "Thanh toán",
+      "url": "https://labhouse.vn/faq/thanh-toan-c124"
+    },
+    {
+      "name": "Tư vấn và trả kết quả",
+      "url": "https://labhouse.vn/faq/tu-van-va-tra-ket-qua-c125"
+    }
+  ],
+  "healthInfoCategories": [
+    {
+      "name": "Xét nghiệm tổng quát",
+      "url": "https://labhouse.vn/thong-tin-suc-khoe/xet-nghiem-tong-quat-c197"
+    },
+    {
+      "name": "Người hay uống rượu bia",
+      "url": "https://labhouse.vn/thong-tin-suc-khoe/nguoi-hay-uong-ruou-bia-c105"
+    },
+    {
+      "name": "An toàn tình dục",
+      "url": "https://labhouse.vn/thong-tin-suc-khoe/an-toan-tinh-duc-c196"
+    },
+    {
+      "name": "Người hút thuốc",
+      "url": "https://labhouse.vn/thong-tin-suc-khoe/nguoi-hut-thuoc-la-c106"
+    }
+  ],
+  "socialMedia": [
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/labhouse.vn"
+    },
+    {
+      "platform": "Zalo",
+      "url": "https://zalo.me/301440929792109351"
+    },
+    {
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/channel/UCJFe9y_Oa6QiuykvzwXvRpg"
+    }
+  ],
+  "legalPages": [
+    {
+      "name": "Chính sách khách hàng",
+      "url": "https://labhouse.vn/chinh-sach-khach-hang.html"
+    },
+    {
+      "name": "Chính sách bảo mật",
+      "url": "https://labhouse.vn/chinh-sach-bao-mat.html"
+    },
+    {
+      "name": "Điều khoản sử dụng",
+      "url": "https://labhouse.vn/dieu-khoan-su-dung.html"
+    },
+    {
+      "name": "Quy chế hoạt động TMĐT",
+      "url": "https://labhouse.vn/quy-che-hoat-dong-tmdt.html"
+    }
+  ],
+  "images": {
+    "banner": "https://labhouse.vn/static/media/banner-combo.f498c84b.png",
+    "aboutBanner": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/178/Web%20banner%20Trang%20gioi%20thieu.jpg",
+    "facility": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/181/Capture%20One%20Catalog2208.JPG",
+    "mainImage": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/3/Anh-web-1.jpg"
+  },
+  "copyright": "© 2021 bản quyền thuộc về LabHouse"
+}
