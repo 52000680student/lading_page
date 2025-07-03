@@ -49,12 +49,14 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <img
-              src="/images/logos/logo_trans.png"
-              alt="MedNova"
-              className="h-10 w-auto"
-              style={{ width: '200px', height: '80px' }}
-            />
+            <Link href="/">
+              <img
+                src="/images/logos/logo_trans.png"
+                alt="MedNova"
+                className="h-10 w-auto cursor-pointer"
+                style={{ width: '200px', height: '80px' }}
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
