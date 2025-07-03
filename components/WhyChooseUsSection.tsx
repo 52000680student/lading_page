@@ -7,38 +7,38 @@ const benefits: Benefit[] = [
   {
     id: '1',
     icon: 'Award',
-    title: 'Certified and Accredited Labs',
-    description: 'All our partner laboratories are internationally certified and accredited for the highest quality standards.',
+    title: 'Phòng thí nghiệm được chứng nhận và công nhận',
+    description: 'Tất cả các phòng thí nghiệm đối tác của chúng tôi đều được chứng nhận và công nhận quốc tế về tiêu chuẩn chất lượng cao nhất.',
   },
   {
     id: '2',
     icon: 'HomeIcon',
-    title: 'Free At-Home Sample Collection',
-    description: 'Enjoy the convenience of professional sample collection at your doorstep at no extra cost.',
+    title: 'Lấy mẫu tại nhà miễn phí',
+    description: 'Tận hưởng sự tiện lợi của dịch vụ lấy mẫu chuyên nghiệp ngay tại nhà mà không mất thêm chi phí.',
   },
   {
     id: '3',
     icon: 'Shield',
-    title: 'Secure and Confidential Results',
-    description: 'Your health data is protected with bank-level security and complete privacy assurance.',
+    title: 'Kết quả an toàn và bảo mật',
+    description: 'Dữ liệu sức khỏe của bạn được bảo vệ và đảm bảo quyền riêng tư hoàn toàn.',
   },
   {
     id: '4',
     icon: 'Stethoscope',
-    title: 'Expert Medical Consultation',
-    description: 'Access to qualified medical professionals for result interpretation and health guidance.',
+    title: 'Tư vấn y khoa chuyên gia',
+    description: 'Tiếp cận các chuyên gia y tế có trình độ để giải thích kết quả và hướng dẫn về sức khỏe.',
   },
   {
     id: '5',
     icon: 'Clock',
-    title: 'Fast Turnaround Time',
-    description: 'Get your results quickly with our 24-48 hour processing time for most tests.',
+    title: 'Thời gian xử lý xét nghiệm nhanh chóng',
+    description: 'Nhận kết quả nhanh chóng với thời gian xử lý từ 24-48 giờ cho hầu hết các xét nghiệm.',
   },
   {
     id: '6',
     icon: 'Phone',
-    title: '24/7 Customer Support',
-    description: 'Our dedicated support team is available round the clock to assist you with any queries.',
+    title: 'Chăm sóc khách hàng 24/7',
+    description: 'Đội ngũ hỗ trợ tận tâm của chúng tôi luôn sẵn sàng giải đáp mọi thắc mắc của bạn 24/7.',
   },
 ];
 
@@ -67,7 +67,7 @@ const WhyChooseUsSection: React.FC = () => {
   return (
     <section id="about" className="py-20 bg-light-blue">
       <div className="container">
-        <h2 className="section-title">Why Choose Our Service?</h2>
+        <h2 className="section-title">Lí do bạn nên chọn xét nghiệm tại MedNova?</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {benefits.map((benefit, index) => (

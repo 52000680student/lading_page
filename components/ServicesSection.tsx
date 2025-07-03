@@ -1,34 +1,41 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Clock, BarChart3 } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import Link from 'next/link';
-import BookingModal from '@/components/BookingModal';
-import { TestPackage } from '@/types';
-import labhouseData from '@/data/labhouse-data.json';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Clock, BarChart3 } from "lucide-react";
+import Button from "@/components/ui/Button";
+import Link from "next/link";
+import BookingModal from "@/components/BookingModal";
+import { TestPackage } from "@/types";
+import labhouseData from "@/data/labhouse-data.json";
 
 const ServicesSection = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [selectedPackageForBooking, setSelectedPackageForBooking] = useState<TestPackage | null>(null);
+  const [selectedPackageForBooking, setSelectedPackageForBooking] =
+    useState<TestPackage | null>(null);
 
   // Get featured test packages from different categories
   const featuredPackages = [
-    ...labhouseData.testPackages.generalCheckup.filter(pkg => pkg.featured).slice(0, 2),
-    ...labhouseData.testPackages.reproductiveHealth.filter(pkg => pkg.featured).slice(0, 2),
-    ...labhouseData.testPackages.lifestyleHabits.filter(pkg => pkg.featured).slice(0, 2)
+    ...labhouseData.testPackages.generalCheckup
+      .filter((pkg) => pkg.featured)
+      .slice(0, 2),
+    ...labhouseData.testPackages.reproductiveHealth
+      .filter((pkg) => pkg.featured)
+      .slice(0, 2),
+    ...labhouseData.testPackages.lifestyleHabits
+      .filter((pkg) => pkg.featured)
+      .slice(0, 2),
   ].slice(0, 6);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN').format(price);
+    return new Intl.NumberFormat("vi-VN").format(price);
   };
 
   const handleBooking = (pkg: any) => {
     const typedPackage: TestPackage = {
       ...pkg,
-      icon: pkg.icon || '/images/icons/default-test.svg',
-      resultTime: pkg.resultTime || 'Trong ngày'
+      icon: pkg.icon || "/images/icons/default-test.svg",
+      resultTime: pkg.resultTime || "Trong ngày",
     };
     setSelectedPackageForBooking(typedPackage);
     setIsBookingModalOpen(true);
@@ -48,7 +55,8 @@ const ServicesSection = () => {
             Gói Xét Nghiệm Chuyên Khoa
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Khám phá các gói xét nghiệm toàn diện, được thiết kế riêng cho từng nhu cầu sức khỏe của bạn
+            Khám phá các gói xét nghiệm toàn diện, được thiết kế riêng cho từng
+            nhu cầu sức khỏe của bạn
           </p>
         </motion.div>
 
@@ -69,8 +77,10 @@ const ServicesSection = () => {
                     alt={pkg.name}
                     className="w-10 h-10 object-contain"
                     onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextElementSibling?.classList.remove(
+                        "hidden"
+                      );
                     }}
                   />
                 ) : (
@@ -109,7 +119,7 @@ const ServicesSection = () => {
 
               <div className="flex items-center justify-between">
                 <div>
-                  {'originalPrice' in pkg && pkg.originalPrice && (
+                  {"originalPrice" in pkg && pkg.originalPrice && (
                     <span className="text-sm text-gray-400 line-through block">
                       {formatPrice(pkg.originalPrice)} VND
                     </span>
@@ -128,9 +138,7 @@ const ServicesSection = () => {
                     Đặt lịch
                   </Button>
                   <Link href={`/test-package/${pkg.id}`}>
-                    <Button
-                      className="text-sm px-4"
-                    >
+                    <Button className="text-sm px-4">
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </Link>
@@ -147,7 +155,11 @@ const ServicesSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <Button href="/services" size="large" className="flex items-center gap-2">
+          <Button
+            href="/services"
+            size="large"
+            className="flex items-center gap-2"
+          >
             Xem Tất Cả Gói Xét Nghiệm
             <ArrowRight className="w-5 h-5" />
           </Button>
@@ -167,4 +179,4 @@ const ServicesSection = () => {
   );
 };
 
-export default ServicesSection; 
+export default ServicesSection;

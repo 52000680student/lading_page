@@ -1,6 +1,6 @@
 {
   "companyInfo": {
-    "name": "LabHouse",
+    "name": "MedNova",
     "fullName": "CÔNG TY TNHH LABHOUSE VIỆT NAM",
     "businessLicense": "0109289647",
     "licenseIssuer": "Sở Kế hoạch và Đầu tư thành phố Hà Nội",
@@ -10,8 +10,8 @@
     "medicalLicenseDate": "02/07/2021",
     "certification": "ISO 15189:2022",
     "tagline": "TRUNG TÂM XÉT NGHIỆM Y KHOA LABHOUSE",
-    "vision": "LabHouse hướng đến trở thành giải pháp quản trị sức khỏe toàn diện cho gia đình Việt.",
-    "mission": "Tại LabHouse chúng tôi hướng đến sứ mệnh: Vì con người Việt Nam khỏe mạnh hơn, hạnh phúc hơn.",
+    "vision": "MedNova hướng đến trở thành giải pháp quản trị sức khỏe toàn diện cho gia đình Việt.",
+    "mission": "Tại MedNova chúng tôi hướng đến sứ mệnh: Vì con người Việt Nam khỏe mạnh hơn, hạnh phúc hơn.",
     "coreValues": [
       {
         "name": "Công nghệ",
@@ -19,7 +19,7 @@
       },
       {
         "name": "Tài năng",
-        "description": "Luôn luôn cập nhật và nâng cao chất lượng chuyên môn để mỗi con người LabHouse phải là một chuyên gia thực sự."
+        "description": "Luôn luôn cập nhật và nâng cao chất lượng chuyên môn để mỗi con người MedNova phải là một chuyên gia thực sự."
       },
       {
         "name": "Tận tâm",
@@ -29,7 +29,7 @@
     "infrastructure": "Trung tâm xét nghiệm theo tiêu chuẩn quốc tế với hệ thống máy móc và trang thiết bị thuộc hàng TOP về chất lượng, được nhập khẩu từ các hãng hàng đầu trên thế giới: Siemen, Biorad, Nihon Kohden... cho công suất chạy lên đến hàng nghìn mẫu mỗi ngày."
   },
   "contact": {
-    "hotline": "1800 6271",
+    "hotline": "0843 179 579",
     "email": "dvkh@labhouse.vn",
     "workingHours": {
       "days": "Thứ 2 đến Chủ Nhật",
@@ -297,7 +297,7 @@
       "id": "general-checkup",
       "name": "Kiểm tra tổng quát",
       "url": "https://labhouse.vn/goi-xet-nghiem/kiem-tra-tong-quat-c193",
-      "description": "LabHouse có 5 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+      "description": "MedNova có 5 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
     },
     {
       "id": "organ-symptoms",
@@ -308,13 +308,13 @@
       "id": "reproductive-health",
       "name": "Sức khỏe sinh sản",
       "url": "https://labhouse.vn/goi-xet-nghiem/suc-khoe-sinh-san-c194",
-      "description": "LabHouse có 7 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+      "description": "MedNova có 7 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
     },
     {
       "id": "lifestyle-habits",
       "name": "Thói quen sinh hoạt",
       "url": "https://labhouse.vn/goi-xet-nghiem/thoi-quen-sinh-hoat-c223",
-      "description": "LabHouse có 9 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+      "description": "MedNova có 9 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
     }
   ],
   "process": [
@@ -461,5 +461,5 @@
     "facility": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/181/Capture%20One%20Catalog2208.JPG",
     "mainImage": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/3/Anh-web-1.jpg"
   },
-  "copyright": "© 2021 bản quyền thuộc về LabHouse"
+  "copyright": "© 2021 bản quyền thuộc về MedNova"
 }

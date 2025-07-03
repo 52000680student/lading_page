@@ -1,40 +1,34 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Button from '@/components/ui/Button';
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Button from "@/components/ui/Button";
+import TestRegistrationModal from "@/components/TestRegistrationModal";
 
 // Medical health checkup images
 const heroImages = [
-  // {
-  //   src: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-  //   alt: "Medical Professional with Stethoscope"
-  // },
   {
     src: "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    alt: "Health Checkup Process"
+    alt: "Health Checkup Process",
   },
   {
-    src: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    alt: "Doctor Consultation"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    alt: "Medical Equipment and Testing"
+    src: "/images/logos/banner.png",
+    alt: "Doctor Consultation",
   },
   {
     src: "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    alt: "Health Checkup Process"
-  }
+    alt: "Health Checkup Process",
+  },
 ];
 
 const HeroSection: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 
   const handleBookTest = () => {
-    alert('Booking functionality would be integrated here. This could redirect to a booking form or open a modal.');
+    setIsRegistrationModalOpen(true);
   };
 
   // Auto-slide functionality
@@ -52,12 +46,16 @@ const HeroSection: React.FC = () => {
 
   const goToPrevious = () => {
     setIsAutoPlaying(false);
-    setCurrentImageIndex(currentImageIndex === 0 ? heroImages.length - 1 : currentImageIndex - 1);
+    setCurrentImageIndex(
+      currentImageIndex === 0 ? heroImages.length - 1 : currentImageIndex - 1
+    );
   };
 
   const goToNext = () => {
     setIsAutoPlaying(false);
-    setCurrentImageIndex(currentImageIndex === heroImages.length - 1 ? 0 : currentImageIndex + 1);
+    setCurrentImageIndex(
+      currentImageIndex === heroImages.length - 1 ? 0 : currentImageIndex + 1
+    );
   };
 
   const goToSlide = (index: number) => {
@@ -68,23 +66,26 @@ const HeroSection: React.FC = () => {
   return (
     <section
       className="relative flex items-center justify-center overflow-hidden"
-      style={{ height: 'calc(100vh - 6rem)', marginTop: '6rem' }}
+      style={{ height: "calc(100vh - 6rem)", marginTop: "6rem" }}
     >
       {/* Background Image Slider */}
       <div className="absolute inset-0 z-0">
-        {heroImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+        {heroImages
+          .filter((image) => image.src)
+          .map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
               }`}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
       </div>
 
       {/* Slider Controls */}
@@ -106,17 +107,20 @@ const HeroSection: React.FC = () => {
 
       {/* Slider Indicators */}
       <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
-              ? 'bg-white scale-110'
-              : 'bg-white/50 hover:bg-white/75'
+        {heroImages
+          .filter((image) => image.src)
+          .map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex
+                  ? "bg-white scale-110"
+                  : "bg-white/50 hover:bg-white/75"
               }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
       </div>
 
       {/* Content */}
@@ -128,7 +132,15 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            Reliable Medical Testing at Your Convenience
+            Dịch vụ y tế tin cậy và tiện lợi
+          </motion.h1>
+          <motion.h1
+            className="chakra-heading-lg text-white mb-6 text-shadow"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            "Y tế tận tâm, sức khỏe vẹn toàn"
           </motion.h1>
 
           <motion.p
@@ -137,7 +149,8 @@ const HeroSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            Nhận kết quả chính xác ngay tại nhà với dịch vụ xét nghiệm y tế chuyên nghiệp của chúng tôi
+            Nhận kết quả chính xác ngay tại nhà với dịch vụ xét nghiệm y tế
+            chuyên nghiệp của chúng tôi
           </motion.p>
 
           <motion.div
@@ -158,12 +171,28 @@ const HeroSection: React.FC = () => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
         </svg>
       </div>
+
+      {/* Test Registration Modal */}
+      <TestRegistrationModal
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+      />
     </section>
   );
 };
 
-export default HeroSection; 
+export default HeroSection;

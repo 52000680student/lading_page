@@ -1,10 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import Button from '@/components/ui/Button';
+import TestRegistrationModal from '@/components/TestRegistrationModal';
 
 const CTASection: React.FC = () => {
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+
   const handleBookTest = () => {
-    alert('Booking functionality would be integrated here. This could redirect to a booking form or open a modal.');
+    setIsRegistrationModalOpen(true);
   };
 
   return (
@@ -26,6 +30,12 @@ const CTASection: React.FC = () => {
           </Button>
         </div>
       </div>
+
+      {/* Test Registration Modal */}
+      <TestRegistrationModal
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+      />
     </section>
   );
 };

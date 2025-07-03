@@ -1,10 +1,18 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import labhouseData from '@/data/labhouse-data.json';
+import { motion } from "framer-motion";
+import labhouseData from "@/data/labhouse-data.json";
+import TestRegistrationModal from "./TestRegistrationModal";
+import { useState } from "react";
 
 const HowItWorksSection: React.FC = () => {
   const processSteps = labhouseData.process;
+
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+
+  const handleBookTest = () => {
+    setIsRegistrationModalOpen(true);
+  };
 
   return (
     <section id="how-it-works" className="py-20 bg-white">
@@ -20,7 +28,8 @@ const HowItWorksSection: React.FC = () => {
             Quy trình xét nghiệm đơn giản
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Chỉ với 4 bước đơn giản, bạn có thể hoàn thành xét nghiệm và nhận được kết quả chính xác
+            Chỉ với 4 bước đơn giản, bạn có thể hoàn thành xét nghiệm và nhận
+            được kết quả chính xác
           </p>
         </motion.div>
 
@@ -52,8 +61,12 @@ const HowItWorksSection: React.FC = () => {
                 )}
               </div>
 
-              <h3 className="chakra-heading-sm text-dark-grey mb-4">{step.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{step.description}</p>
+              <h3 className="chakra-heading-sm text-dark-grey mb-4">
+                {step.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {step.description}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -69,17 +82,27 @@ const HowItWorksSection: React.FC = () => {
             Sẵn sàng bắt đầu hành trình chăm sóc sức khỏe của bạn?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors">
+            <button
+              onClick={handleBookTest}
+              className="bg-primary-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 transition-colors"
+            >
               Đăng ký ngay
             </button>
-            <button className="border border-primary-500 text-primary-500 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors">
+            <button
+              onClick={handleBookTest}
+              className="border border-primary-500 text-primary-500 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+            >
               Tư vấn miễn phí
             </button>
           </div>
         </motion.div>
       </div>
+      <TestRegistrationModal
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+      />
     </section>
   );
 };
 
-export default HowItWorksSection; 
+export default HowItWorksSection;

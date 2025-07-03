@@ -4,18 +4,20 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
+import TestRegistrationModal from '@/components/TestRegistrationModal';
 import { NavItem } from '@/types';
 
 const navItems: NavItem[] = [
   { href: '/', label: 'Trang chủ' },
   { href: '/services', label: 'Gói xét nghiệm' },
-  { href: '#about', label: 'Về Med Nova' },
-  { href: '#contact', label: 'Liên hệ' },
+  { href: '/', label: 'Về MedNova' },
+  { href: '/contact', label: 'Liên hệ' },
 ];
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,16 +37,17 @@ const Header: React.FC = () => {
   };
 
   const handleBookTest = () => {
-    alert('Booking functionality would be integrated here. This could redirect to a booking form or open a modal.');
+    setIsRegistrationModalOpen(true);
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? 'bg-white/98 shadow-lg backdrop-blur-custom'
-        : 'bg-white/95 shadow-md backdrop-blur-custom'
-        }`}
-    >
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-white/98 shadow-lg backdrop-blur-custom'
+          : 'bg-white/95 shadow-md backdrop-blur-custom'
+          }`}
+      >
       <div className="container">
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
@@ -139,6 +142,13 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
+
+    {/* Test Registration Modal */}
+    <TestRegistrationModal
+      isOpen={isRegistrationModalOpen}
+      onClose={() => setIsRegistrationModalOpen(false)}
+    />
+    </>
   );
 };
 

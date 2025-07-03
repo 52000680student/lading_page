@@ -6,6 +6,7 @@ import { Search, Filter, BarChart3, Clock, Users, ArrowRight } from 'lucide-reac
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import BookingModal from '@/components/BookingModal';
+import TestingServicesDetail from '@/components/TestingServicesDetail';
 import { TestPackage } from '@/types';
 import labhouseData from '@/data/labhouse-data.json';
 
@@ -16,6 +17,7 @@ const ServicesPage = () => {
     const [selectedAge, setSelectedAge] = useState('all');
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
     const [selectedPackageForBooking, setSelectedPackageForBooking] = useState<TestPackage | null>(null);
+    const [activeMainTab, setActiveMainTab] = useState('packages');
 
     // Get all test packages from different categories
     const allPackages = [
@@ -80,7 +82,7 @@ const ServicesPage = () => {
 
                     <div className="bg-primary-500 text-white p-4 rounded-lg mb-6">
                         <p className="text-center font-medium">
-                            LabHouse có {allPackages.length} gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn
+                            MedNova có {allPackages.length} gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn
                         </p>
                     </div>
 
@@ -90,8 +92,40 @@ const ServicesPage = () => {
                 </div>
             </div>
 
+            {/* Main Tab Navigation */}
+            <div className="bg-white border-b sticky top-24 z-40">
+                <div className="container">
+                    <div className="flex overflow-x-auto">
+                        <button
+                            onClick={() => setActiveMainTab('packages')}
+                            className={`flex items-center gap-2 px-6 py-4 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
+                                activeMainTab === 'packages'
+                                    ? 'text-primary-500 border-primary-500'
+                                    : 'text-gray-500 border-transparent hover:text-gray-700'
+                            }`}
+                        >
+                            <BarChart3 className="w-5 h-5" />
+                            Gói xét nghiệm
+                        </button>
+                        <button
+                            onClick={() => setActiveMainTab('services')}
+                            className={`flex items-center gap-2 px-6 py-4 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
+                                activeMainTab === 'services'
+                                    ? 'text-primary-500 border-primary-500'
+                                    : 'text-gray-500 border-transparent hover:text-gray-700'
+                            }`}
+                        >
+                            <Users className="w-5 h-5" />
+                            Chi tiết dịch vụ xét nghiệm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div className="container py-8">
-                <div className="flex flex-col lg:flex-row gap-8">
+                {/* Test Packages Tab Content */}
+                {activeMainTab === 'packages' && (
+                    <div className="flex flex-col lg:flex-row gap-8">
                     {/* Sidebar Filters */}
                     <div className="lg:w-1/4">
                         <div className="bg-white rounded-2xl p-6 shadow-sm">
@@ -282,6 +316,12 @@ const ServicesPage = () => {
                         )}
                     </div>
                 </div>
+                )}
+
+                {/* Testing Services Detail Tab Content */}
+                {activeMainTab === 'services' && (
+                    <TestingServicesDetail isVisible={true} />
+                )}
             </div>
 
             {/* Booking Modal */}
