@@ -1,0 +1,59 @@
+export interface ServiceCard {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface Step {
+  id: string;
+  number: number;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface Benefit {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface NavItem {
+  href: string;
+  label: string;
+}
+
+export interface ContactInfo {
+  address: string;
+  phone: string;
+  email: string;
+}
+
+export interface SocialLink {
+  platform: string;
+  href: string;
+  icon: string;
+}
+
+export interface ButtonProps {
+  children: any;
+  onClick?: () => void;
+  variant?: 'primary' | 'outline';
+  size?: 'default' | 'large';
+  className?: string;
+  href?: string;
+}
+
+export interface SectionProps {
+  children: any;
+  className?: string;
+  id?: string;
+}
+
+export interface AnimatedSectionProps {
+  children: any;
+  className?: string;
+  delay?: number;
+} 
