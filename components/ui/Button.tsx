@@ -10,6 +10,7 @@ const Button: React.FC<ButtonProps> = ({
   size = 'default',
   className,
   href,
+  disabled,
 }) => {
   const baseClasses = 'btn';
   const variantClasses = {
@@ -25,10 +26,16 @@ const Button: React.FC<ButtonProps> = ({
     baseClasses,
     variantClasses[variant],
     sizeClasses[size],
+    disabled ? 'opacity-70 cursor-not-allowed' : '',
     className
   );
 
-  if (href) {
+  const handleClick = (e: React.MouseEvent) => {
+    if (disabled || !onClick) return;
+    onClick();
+  };
+
+  if (href && !disabled) {
     return (
       <a href={href} className={classes} onClick={onClick}>
         {children}
@@ -37,10 +44,10 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={classes} onClick={handleClick} disabled={disabled}>
       {children}
     </button>
   );
 };
 
-export default Button; 
+export default Button;

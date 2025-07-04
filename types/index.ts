@@ -44,6 +44,7 @@ export interface ButtonProps {
   size?: 'default' | 'large';
   className?: string;
   href?: string;
+  disabled?: boolean;
 }
 
 export interface SectionProps {

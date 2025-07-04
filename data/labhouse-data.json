@@ -89,7 +89,7 @@
       },
       {
         "id": "premium-female",
-        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Labhouse Premium cho Nữ",
+        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Mednova Premium cho Nữ",
         "category": "Kiểm tra tổng quát",
         "gender": "Nữ",
         "price": 1515000,
@@ -100,7 +100,7 @@
       },
       {
         "id": "premium-male",
-        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Labhouse Premium cho Nam",
+        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Mednova Premium cho Nam",
         "category": "Kiểm tra tổng quát", 
         "gender": "Nam",
         "price": 1615000,
@@ -111,7 +111,7 @@
       },
       {
         "id": "premium-children",
-        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Labhouse Premium cho trẻ em",
+        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Mednova Premium cho trẻ em",
         "category": "Kiểm tra tổng quát",
         "targetGroup": "Trẻ em",
         "price": 1699000,

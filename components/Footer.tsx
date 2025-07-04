@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <h3 className="text-xl font-bold mb-6 text-white">Xem thêm</h3>
             <ul className="space-y-3">
               <li>
                 <a

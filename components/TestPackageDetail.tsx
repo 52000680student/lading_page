@@ -252,7 +252,7 @@ const TestPackageDetail: React.FC = () => {
           <div className="lg:col-span-1">
             {/* Booking Card */}
             <motion.div
-              className="bg-white rounded-2xl p-6 shadow-sm mb-8 sticky top-4"
+              className="bg-white rounded-2xl p-6 shadow-sm mb-14"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
