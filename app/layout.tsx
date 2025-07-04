@@ -2,6 +2,7 @@ import './globals.css';
 import { Metadata, Viewport } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FloatingButtons from '@/components/FloatingButtons';
 
 export const metadata: Metadata = {
   title: 'MedNova - Trung Tâm Xét Nghiệm Y Khoa Chuyên Nghiệp',
@@ -44,6 +45,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingButtons />
       </body>
     </html>
   );

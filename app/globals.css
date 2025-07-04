@@ -69,6 +69,36 @@
   .card {
     @apply bg-white p-8 rounded-2xl text-center shadow-card transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-card-hover;
   }
+
+  /* Floating buttons styles */
+  .floating-buttons {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+  }
+
+  .floating-button {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .floating-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .floating-button:active {
+    transform: translateY(0) scale(0.98);
+  }
 }
 
 @layer utilities {
@@ -97,6 +127,19 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #e6621e;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .floating-buttons {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .floating-button {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 /* Reduce motion for accessibility */
