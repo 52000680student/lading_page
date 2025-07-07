@@ -10,6 +10,7 @@ import { NavItem } from '@/types';
 const navItems: NavItem[] = [
   { href: '/', label: 'Trang chủ' },
   { href: '/services', label: 'Gói xét nghiệm' },
+  { href: '/results', label: 'Tra cứu kết quả' },
   { href: '/', label: 'Về MedNova' },
   { href: '/contact', label: 'Liên hệ' },
 ];
