@@ -1,0 +1,12 @@
+Task:
+1, I have an api url: https://script.google.com/macros/s/AKfycbykYPI39T2bacEO7s_vfQFonjhZAKXmBFBujB2nMJUaJOPtW-4hQjN0plPS5zCWIXZw/exec. With POST method.
+- Will send with a body including the following fields:
+name || "",
+testPackage || "",
+phone || "",
+address || "",
+appointmentTime || "",
+otherRequirements || "",
+
+- I want you to perform a function, when the user submits the forms: Test registration, Test appointment (in the test package section)
+Then will get the information that the user entered to call the provided api. Then will send back a success message to the user and hide the form

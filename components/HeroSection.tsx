@@ -9,16 +9,24 @@ import TestRegistrationModal from "@/components/TestRegistrationModal";
 // Medical health checkup images
 const heroImages = [
   {
-    src: "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    alt: "Health Checkup Process",
+    src: "/images/logos/slide_1.jpg?v=" + Date.now(),
+    alt: "Medical Services - Slide 1",
   },
   {
-    src: "/images/logos/banner.png",
-    alt: "Doctor Consultation",
+    src: "/images/logos/slide_2.jpg?v=" + Date.now(),
+    alt: "Medical Services - Slide 2",
   },
   {
-    src: "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
-    alt: "Health Checkup Process",
+    src: "/images/logos/slide_3.jpg?v=" + Date.now(),
+    alt: "Medical Services - Slide 3",
+  },
+  {
+    src: "/images/logos/slide_4.jpg?v=" + Date.now(),
+    alt: "Medical Services - Slide 4",
+  },
+  {
+    src: "/images/logos/slide_5.jpg?v=" + Date.now(),
+    alt: "Medical Services - Slide 5",
   },
 ];
 
@@ -75,9 +83,8 @@ const HeroSection: React.FC = () => {
           .map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                index === currentImageIndex ? "opacity-100" : "opacity-0"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentImageIndex ? "opacity-100" : "opacity-0"
+                }`}
             >
               <img
                 src={image.src}
@@ -113,11 +120,10 @@ const HeroSection: React.FC = () => {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex
-                  ? "bg-white scale-110"
-                  : "bg-white/50 hover:bg-white/75"
-              }`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
+                ? "bg-white scale-110"
+                : "bg-white/50 hover:bg-white/75"
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
