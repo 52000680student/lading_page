@@ -15,29 +15,22 @@ const ServicesSection = () => {
     useState<TestPackage | null>(null);
 
   // Get featured test packages from different categories
-  const featuredPackages = [
+  const featuredPackages: TestPackage[] = [
     ...labhouseData.testPackages.generalCheckup
       .filter((pkg) => pkg.featured)
-      .slice(0, 2),
-    ...labhouseData.testPackages.reproductiveHealth
-      .filter((pkg) => pkg.featured)
-      .slice(0, 2),
-    ...labhouseData.testPackages.lifestyleHabits
-      .filter((pkg) => pkg.featured)
-      .slice(0, 2),
-  ].slice(0, 6);
+      .slice(0, 6),
+  ].slice(0, 6).map(pkg => ({
+    ...pkg,
+    icon: pkg.icon || "/images/icons/default-test.svg",
+    resultTime: pkg.resultTime || "Trong ngày",
+  }));
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN").format(price);
   };
 
-  const handleBooking = (pkg: any) => {
-    const typedPackage: TestPackage = {
-      ...pkg,
-      icon: pkg.icon || "/images/icons/default-test.svg",
-      resultTime: pkg.resultTime || "Trong ngày",
-    };
-    setSelectedPackageForBooking(typedPackage);
+  const handleBooking = (pkg: TestPackage) => {
+    setSelectedPackageForBooking(pkg);
     setIsBookingModalOpen(true);
   };
 
@@ -109,17 +102,17 @@ const ServicesSection = () => {
                     <span>{pkg.resultTime}</span>
                   </div>
                 )}
-                {(pkg.gender || pkg.targetGroup) && (
+                {pkg.gender && (
                   <div className="text-sm text-gray-600">
                     <span className="font-medium">Dành cho: </span>
-                    {pkg.gender || pkg.targetGroup}
+                    {pkg.gender}
                   </div>
                 )}
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
-                  {"originalPrice" in pkg && pkg.originalPrice && (
+                  {pkg.originalPrice && (
                     <span className="text-sm text-gray-400 line-through block">
                       {formatPrice(pkg.originalPrice)} VND
                     </span>

@@ -1,33 +1,4 @@
 {
-  "companyInfo": {
-    "name": "MedNova",
-    "fullName": "CÔNG TY TNHH LABHOUSE VIỆT NAM",
-    "businessLicense": "0109289647",
-    "licenseIssuer": "Sở Kế hoạch và Đầu tư thành phố Hà Nội",
-    "licenseDate": "30/07/2020",
-    "medicalLicense": "2287/HNO - GPHĐ",
-    "medicalLicenseIssuer": "Sở y tế thành phố Hà Nội",
-    "medicalLicenseDate": "02/07/2021",
-    "certification": "ISO 15189:2022",
-    "tagline": "TRUNG TÂM XÉT NGHIỆM Y KHOA LABHOUSE",
-    "vision": "MedNova hướng đến trở thành giải pháp quản trị sức khỏe toàn diện cho gia đình Việt.",
-    "mission": "Tại MedNova chúng tôi hướng đến sứ mệnh: Vì con người Việt Nam khỏe mạnh hơn, hạnh phúc hơn.",
-    "coreValues": [
-      {
-        "name": "Công nghệ",
-        "description": "Cải tiến và đổi mới liên tục trong vận hành, trang thiết bị và cơ sở vật chất, bắt nhịp với sự phát triển của y tế thế giới."
-      },
-      {
-        "name": "Tài năng",
-        "description": "Luôn luôn cập nhật và nâng cao chất lượng chuyên môn để mỗi con người MedNova phải là một chuyên gia thực sự."
-      },
-      {
-        "name": "Tận tâm",
-        "description": "Dịch vụ luôn lấy khách hàng làm trọng tâm, đặt lợi ích của khách hàng lên hàng đầu."
-      }
-    ],
-    "infrastructure": "Trung tâm xét nghiệm theo tiêu chuẩn quốc tế với hệ thống máy móc và trang thiết bị thuộc hàng TOP về chất lượng, được nhập khẩu từ các hãng hàng đầu trên thế giới: Siemen, Biorad, Nihon Kohden... cho công suất chạy lên đến hàng nghìn mẫu mỗi ngày."
-  },
   "contact": {
     "hotline": "0843 179 579",
     "email": "dvkh@labhouse.vn",
@@ -42,253 +13,109 @@
         "hours": "8h00 - 21h00"
       },
       {
-        "id": "CS2", 
+        "id": "CS2",
         "address": "94 An Bình, Phường 5, Quận 5, TP Hồ Chí Minh",
         "hours": "7h00 - 20h00"
       }
     ]
   },
-  "team": [
-    {
-      "name": "Hồ Văn Cư",
-      "position": "Giám đốc chuyên môn",
-      "degree": "BSCKII. Thạc sỹ xét nghiệm",
-      "experience": "Nguyên chủ nhiệm Khoa Sinh học phóng xạ và Thực nghiệm - Viện Y học phóng xạ và U bướu quân đội",
-      "image": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/271180/anh-bac-si-02.jpg"
-    },
-    {
-      "name": "Nguyễn Thị Dung",
-      "position": "Giám đốc vận hành",
-      "experience": "Quản lý chất lượng, 13 năm kinh nghiệm trong ngành xét nghiệm tại Bệnh viện Phổi, Bệnh viện Đa khoa Quốc tế Vinmec.",
-      "image": "https://erp.labhouse.vn/Content/ImageUpload/LAB/dlgECMSItem/167/a1.png"
-    }
-  ],
   "testPackages": {
     "generalCheckup": [
       {
         "id": "general-female-basic",
-        "name": "Gói xét nghiệm tổng quát cho Nữ - CƠ BẢN",
+        "name": "Gói xét nghiệm tầm soát ung thư cho nữ",
         "category": "Kiểm tra tổng quát",
         "gender": "Nữ",
-        "price": 662000,
-        "indicators": 15,
+        "price": 1950000,
+        "indicators": 9,
         "resultTime": "Trong ngày",
         "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000790/Images/icon-chien-dich-01.png",
-        "featured": true
+        "featured": true,
+        "image": "/images/packages/1.jpg"
       },
       {
         "id": "general-male-basic",
-        "name": "Gói xét nghiệm tổng quát cho Nam - CƠ BẢN",
+        "name": "Gói xét nghiệm tầm soát ung thư cho nam",
         "category": "Kiểm tra tổng quát",
         "gender": "Nam",
-        "price": 662000,
-        "indicators": 15,
+        "price": 1450000,
+        "indicators": 7,
         "resultTime": "Trong ngày",
         "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000793/Images/tong-quat-cb.png",
-        "featured": true
+        "featured": true,
+        "image": "/images/packages/2.jpg"
       },
       {
         "id": "premium-female",
-        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Mednova Premium cho Nữ",
+        "name": "Gói xét nghiệm gan mật",
         "category": "Kiểm tra tổng quát",
-        "gender": "Nữ",
-        "price": 1515000,
-        "indicators": 20,
+        "gender": "Tất cả",
+        "price": 1165000,
+        "indicators": 12,
         "resultTime": "Trong ngày",
         "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000792/Images/TQ%20nang%20cao.png",
-        "featured": true
+        "featured": true,
+        "image": "/images/packages/3.jpg"
       },
       {
         "id": "premium-male",
-        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Mednova Premium cho Nam",
-        "category": "Kiểm tra tổng quát", 
-        "gender": "Nam",
-        "price": 1615000,
-        "indicators": 19,
+        "name": "Gói xét nghiệm tổng quát cơ bản",
+        "category": "Kiểm tra tổng quát",
+        "gender": "Tất cả",
+        "price": 1209000,
+        "indicators": 13,
         "resultTime": "Trong ngày",
         "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000795/Images/tong-quat-nc.png",
-        "featured": true
+        "featured": true,
+        "image": "/images/packages/4.jpg"
       },
       {
-        "id": "premium-children",
-        "name": "Gói Xét nghiệm kiểm tra chức năng cơ thể tổng quát Mednova Premium cho trẻ em",
+        "id": "general-advanced",
+        "name": "Gói xét nghiệm tổng quát nâng cao",
         "category": "Kiểm tra tổng quát",
-        "targetGroup": "Trẻ em",
-        "price": 1699000,
-        "indicators": 21,
+        "gender": "Tất cả",
+        "price": 1704000,
+        "indicators": 17,
         "resultTime": "Trong ngày",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000804/Images/tong%20quat%20tre%20em%20nc.png",
-        "featured": true
-      }
-    ],
-    "reproductiveHealth": [
-      {
-        "id": "mom-care",
-        "name": "Gói xét nghiệm kiểm tra thể trạng sau sinh Mom Care",
-        "category": "Sức khỏe sinh sản",
-        "targetGroup": "Phụ nữ sau sinh",
-        "price": 399000,
-        "indicators": 4,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001976/Images/icon%20new-06.png",
-        "featured": true
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000795/Images/tong-quat-nc.png",
+        "featured": true,
+        "image": "/images/packages/4.jpg"
       },
       {
-        "id": "hpv-plus",
-        "name": "Gói xét nghiệm HPV plus (HPV, CA 125, ABO)",
-        "category": "Sức khỏe sinh sản",
-        "price": 500000,
-        "indicators": 3,
-        "resultTime": "Trong vòng 24-48 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/002060/Images/icon-HPV-01.png",
-        "featured": true
-      },
-      {
-        "id": "hpv-realtime",
-        "name": "Gói xét nghiệm HPV Realtime PCR - Món quà của sự thấu hiểu",
-        "category": "Sức khỏe sinh sản",
-        "price": 375000,
-        "indicators": 1,
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/003565/Images/icon-HPV-01.png",
-        "featured": true
-      },
-      {
-        "id": "ovarian-cancer",
-        "name": "Xét nghiệm dấu ấn phát hiện sớm ung thư buồng trứng",
-        "category": "Sức khỏe sinh sản",
-        "price": 150000,
-        "indicators": 1,
-        "resultTime": "Trong vòng 72 giờ",
-        "featured": true
-      },
-      {
-        "id": "cervical-ovarian-cancer",
-        "name": "Gói xét nghiệm tầm soát UT cổ tử cung và buồng trứng",
-        "category": "Sức khỏe sinh sản",
-        "price": 1200000,
-        "indicators": 5,
-        "resultTime": "Trong vòng 72 giờ",
-        "featured": true
-      },
-      {
-        "id": "reproductive-health-male",
-        "name": "Gói xét nghiệm kiểm tra sức khoẻ sinh sản cho Nam",
-        "category": "Sức khỏe sinh sản",
+        "id": "comprehensive-male",
+        "name": "Gói xét nghiệm tổng quát toàn diện cho nam",
+        "category": "Kiểm tra tổng quát",
         "gender": "Nam",
-        "price": 1585000,
-        "originalPrice": 2295000,
-        "indicators": 22,
+        "price": 3314000,
+        "indicators": 24,
         "resultTime": "Trong ngày",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000765/Images/sinh%20san%20nam.png",
-        "featured": true
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000795/Images/tong-quat-nc.png",
+        "featured": true,
+        "image": "/images/packages/4.jpg"
       },
       {
-        "id": "reproductive-health-female",
-        "name": "Gói xét nghiệm kiểm tra sức khoẻ sinh sản cho Nữ",
-        "category": "Sức khỏe sinh sản",
+        "id": "comprehensive-female",
+        "name": "Gói xét nghiệm tổng quát toàn diện cho nữ",
+        "category": "Kiểm tra tổng quát",
         "gender": "Nữ",
-        "price": 2325000,
-        "indicators": 26,
+        "price": 3814000,
+        "indicators": 27,
         "resultTime": "Trong ngày",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000916/Images/sinh%20san%20nu%20nc.png",
-        "featured": true
-      }
-    ],
-    "lifestyleHabits": [
-      {
-        "id": "food-sensitive",
-        "name": "Gói xét nghiệm chỉ số dinh dưỡng Food Sensitive",
-        "category": "Thói quen sinh hoạt",
-        "price": 499000,
-        "indicators": 11,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001971/Images/icon%20new-01.png",
-        "featured": true
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000795/Images/tong-quat-nc.png",
+        "featured": true,
+        "image": "/images/packages/4.jpg"
       },
       {
-        "id": "body-inside",
-        "name": "Gói xét nghiệm chỉ số thể chất Body Inside",
-        "category": "Thói quen sinh hoạt",
-        "price": 525000,
+        "id": "stroke-risk",
+        "name": "Gói xét nghiệm nguy cơ đột quỵ",
+        "category": "Kiểm tra tổng quát",
+        "gender": "Tất cả",
+        "price": 825000,
         "indicators": 12,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001972/Images/icon%20new-02.png",
-        "featured": true
-      },
-      {
-        "id": "diet-support",
-        "name": "Gói xét nghiệm cân bằng chuyển hoá Diet Support",
-        "category": "Thói quen sinh hoạt",
-        "price": 499000,
-        "indicators": 11,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001973/Images/icon%20new-03.png",
-        "featured": true
-      },
-      {
-        "id": "nano-secret-female",
-        "name": "Gói xét nghiệm tầm soát sức khoẻ thầm kín Nano Secret cho Nữ",
-        "category": "Thói quen sinh hoạt",
-        "gender": "Nữ",
-        "price": 487000,
-        "indicators": 4,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001974/Images/icon%20new-04.png",
-        "featured": true
-      },
-      {
-        "id": "nano-secret-male",
-        "name": "Gói xét nghiệm tầm soát sức khoẻ thầm kín Nano Secret cho Nam",
-        "category": "Thói quen sinh hoạt",
-        "gender": "Nam",
-        "price": 490000,
-        "indicators": 4,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/001975/Images/icon%20new-05.png",
-        "featured": true
-      },
-      {
-        "id": "std-pcr",
-        "name": "Gói xét nghiệm Realtime PCR 7 tác nhân gây bệnh đường sinh dục (STD)",
-        "category": "Thói quen sinh hoạt",
-        "price": 1960000,
-        "indicators": 2,
-        "resultTime": "Trong vòng 24-48 giờ",
-        "featured": true
-      },
-      {
-        "id": "alcohol-health",
-        "name": "Gói xét nghiệm kiểm tra sức khoẻ cho người thường xuyên sử dụng rượu bia",
-        "category": "Thói quen sinh hoạt",
-        "targetGroup": "Người uống rượu bia",
-        "price": 399000,
-        "originalPrice": 583000,
-        "indicators": 15,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000779/Images/ruou-bia.png",
-        "featured": true
-      },
-      {
-        "id": "stress-fatigue",
-        "name": "Gói xét nghiệm kiểm tra sức khoẻ cho người stress, hụt hơi, mệt mỏi không rõ nguyên nhân",
-        "category": "Thói quen sinh hoạt",
-        "targetGroup": "Người stress, mệt mỏi",
-        "price": 499000,
-        "indicators": 10,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000739/Images/met%20moi%20k%20ro%20nguyen%20nhan.png",
-        "featured": true
-      },
-      {
-        "id": "smoker-health",
-        "name": "Gói xét nghiệm kiểm tra sức khoẻ cho người hút thuốc lá",
-        "category": "Thói quen sinh hoạt",
-        "targetGroup": "Người hút thuốc",
-        "price": 499000,
-        "indicators": 10,
-        "resultTime": "Trong vòng 2 giờ",
-        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000769/Images/thuoc%20la.png",
-        "featured": true
+        "resultTime": "Trong ngày",
+        "icon": "https://erp.labhouse.vn/Content/ImageUpload/LAB/frmYItemMaster/000795/Images/tong-quat-nc.png",
+        "featured": true,
+        "image": "/images/packages/5.jpg"
       }
     ]
   },
@@ -297,24 +124,12 @@
       "id": "general-checkup",
       "name": "Kiểm tra tổng quát",
       "url": "https://labhouse.vn/goi-xet-nghiem/kiem-tra-tong-quat-c193",
-      "description": "MedNova có 5 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
+      "description": "MedNova có 8 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
     },
     {
       "id": "organ-symptoms",
-      "name": "Cơ quan và triệu chứng", 
+      "name": "Cơ quan và triệu chứng",
       "url": "https://labhouse.vn/goi-xet-nghiem/co-quan-va-trieu-chung-c195"
-    },
-    {
-      "id": "reproductive-health",
-      "name": "Sức khỏe sinh sản",
-      "url": "https://labhouse.vn/goi-xet-nghiem/suc-khoe-sinh-san-c194",
-      "description": "MedNova có 7 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
-    },
-    {
-      "id": "lifestyle-habits",
-      "name": "Thói quen sinh hoạt",
-      "url": "https://labhouse.vn/goi-xet-nghiem/thoi-quen-sinh-hoat-c223",
-      "description": "MedNova có 9 gói dịch vụ xét nghiệm phù hợp với nhu cầu của bạn"
     }
   ],
   "process": [

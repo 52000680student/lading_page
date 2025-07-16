@@ -23,8 +23,6 @@ const TestPackageDetail: React.FC = () => {
       // Find the test package by ID from all categories
       const allPackages = [
         ...labhouseData.testPackages.generalCheckup,
-        ...labhouseData.testPackages.reproductiveHealth,
-        ...labhouseData.testPackages.lifestyleHabits,
       ];
 
       const foundPackage = allPackages.find((pkg) => pkg.id === params.id);
@@ -189,12 +187,33 @@ const TestPackageDetail: React.FC = () => {
               </div>
             </motion.div>
 
+            {/* Package Image */}
+            {testPackage.image && (
+              <motion.div
+                className="bg-white rounded-2xl p-8 shadow-sm mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+              >
+                <h2 className="chakra-heading-md text-dark-grey mb-6">
+                  Hình ảnh gói xét nghiệm
+                </h2>
+                <div className="flex justify-center">
+                  <img
+                    src={testPackage.image}
+                    alt={testPackage.name}
+                    className="max-w-full h-auto rounded-lg shadow-md"
+                  />
+                </div>
+              </motion.div>
+            )}
+
             {/* Features */}
             <motion.div
               className="bg-white rounded-2xl p-8 shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
             >
               <h2 className="chakra-heading-md text-dark-grey mb-6">
                 Điểm nổi bật của gói xét nghiệm

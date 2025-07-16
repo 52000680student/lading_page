@@ -22,8 +22,6 @@ const ServicesPage = () => {
     // Get all test packages from different categories
     const allPackages = [
         ...labhouseData.testPackages.generalCheckup,
-        ...labhouseData.testPackages.reproductiveHealth,
-        ...labhouseData.testPackages.lifestyleHabits
     ] as any[];
 
     // Filter packages based on criteria
@@ -49,8 +47,7 @@ const ServicesPage = () => {
     const categories = [
         { id: 'all', name: 'Tất cả gói xét nghiệm' },
         { id: 'Kiểm tra tổng quát', name: 'Kiểm tra tổng quát' },
-        { id: 'Sức khỏe sinh sản', name: 'Sức khỏe sinh sản' },
-        { id: 'Thói quen sinh hoạt', name: 'Thói quen sinh hoạt' },
+        { id: 'Cơ quan và triệu chứng', name: 'Cơ quan và triệu chứng' },
     ];
 
     const genderOptions = [

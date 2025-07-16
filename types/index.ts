@@ -70,6 +70,7 @@ export interface TestPackage {
   indicators: number;
   resultTime: string;
   icon: string;
+  image?: string;
   featured: boolean;
   description?: string;
 }
