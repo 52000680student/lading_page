@@ -1,5 +1,5 @@
 // API utility functions
-const API_URL = "https://script.google.com/macros/s/AKfycbyON6WaCeSTNW151KeCOy0AMCzUD9H1Oqx0D4phQEUDNpTpQffyGeC7DvziECPzrrp7/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwn8BjuMbEXpgAf_q8z9JrnMsTRD2o24ckznlg7oRxoM6PyjVHfON7gIp3g_SyyZ6RPPA/exec";
 
 export interface RegistrationData {
     name: string;
