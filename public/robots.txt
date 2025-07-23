@@ -1,0 +1,38 @@
+# Robots.txt for MedNova Medical Center
+# https://mednovanhatrang.com//robots.txt
+
+User-agent: *
+Allow: /
+
+# Important pages
+Allow: /services
+Allow: /contact
+Allow: /test-package
+Allow: /results
+
+# Sitemap location
+Sitemap: https://mednovanhatrang.com//sitemap.xml
+
+# Block access to admin areas (if any)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
