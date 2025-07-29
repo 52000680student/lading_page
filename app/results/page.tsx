@@ -1,7 +1,20 @@
-'use client';
-
-import { useState } from 'react';
+import { Metadata } from 'next';
 import ResultLookup from '@/components/ResultLookup';
+
+export const metadata: Metadata = {
+  title: 'Tra Cứu Kết Quả Xét Nghiệm | MedNova',
+  description: 'Tra cứu kết quả xét nghiệm nhanh chóng và bảo mật tại MedNova. Nhập thông tin để xem kết quả xét nghiệm của bạn một cách dễ dàng.',
+  keywords: ['tra cứu kết quả', 'kết quả xét nghiệm', 'MedNova', 'xem kết quả'],
+  openGraph: {
+    title: 'Tra Cứu Kết Quả Xét Nghiệm | MedNova',
+    description: 'Tra cứu kết quả xét nghiệm nhanh chóng và bảo mật tại MedNova.',
+    url: 'https://mednovanhatrang.com//results',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://mednovanhatrang.com//results',
+  },
+};
 
 export default function ResultsPage() {
   return (

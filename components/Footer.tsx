@@ -145,9 +145,14 @@ const Footer: React.FC = () => {
 
         {/* Footer Bottom */}
         <div className="border-t border-gray-600 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-300">
-            &copy; {currentYear} bản quyền thuộc về MedNova
-          </p>
+          <div className="flex flex-col items-center md:items-start gap-1">
+            <p className="text-gray-300">
+              &copy; {currentYear} bản quyền thuộc về MedNova
+            </p>
+            <p className="text-gray-300">
+              MSW: 05466
+            </p>
+          </div>
           <div className="flex gap-6">
             <a
               href="#"
