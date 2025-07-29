@@ -7,8 +7,8 @@ import FloatingButtons from '@/components/FloatingButtons';
 export const metadata: Metadata = {
   metadataBase: new URL('https://mednovanhatrang.com/'),
   title: {
-    default: 'MedNova - Trung Tâm Xét Nghiệm Y Khoa Chuyên Nghiệp | Lấy Mẫu Tại Nhà',
-    template: '%s | MedNova - Xét Nghiệm Y Khoa'
+    default: 'Xét Nghiệm Y Khoa Chuyên Nghiệp | MedNova',
+    template: '%s'
   },
   description: 'Nhận kết quả xét nghiệm chính xác từ sự thoải mái tại nhà với dịch vụ xét nghiệm y khoa chuyên nghiệp. Phòng thí nghiệm được chứng nhận quốc tế, tư vấn chuyên gia 24/7 và dịch vụ lấy mẫu tại nhà tiện lợi.',
   keywords: ['xét nghiệm y khoa', 'tầm soát sức khỏe', 'xét nghiệm tại nhà', 'xét nghiệm máu', 'tư vấn y khoa', 'MedNova', 'phòng thí nghiệm', 'chẩn đoán y khoa', 'xét nghiệm nhanh', 'kết quả chính xác'],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     locale: 'vi_VN',
     url: 'https://mednovanhatrang.com/',
     siteName: 'MedNova - Trung Tâm Xét Nghiệm Y Khoa',
-    title: 'MedNova - Trung Tâm Xét Nghiệm Y Khoa Chuyên Nghiệp | Lấy Mẫu Tại Nhà',
+    title: 'Xét Nghiệm Y Khoa Chuyên Nghiệp | MedNova',
     description: 'Dịch vụ xét nghiệm y khoa chuyên nghiệp với phòng thí nghiệm được chứng nhận quốc tế. Lấy mẫu tại nhà miễn phí, tư vấn chuyên gia 24/7, kết quả nhanh chóng và chính xác.',
     images: [
       {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@mednova_vn',
     creator: '@mednova_vn',
-    title: 'MedNova - Trung Tâm Xét Nghiệm Y Khoa Chuyên Nghiệp',
+    title: 'Xét Nghiệm Y Khoa Chuyên Nghiệp | MedNova',
     description: 'Dịch vụ xét nghiệm y khoa chuyên nghiệp với lấy mẫu tại nhà miễn phí. Phòng thí nghiệm chứng nhận quốc tế, kết quả nhanh chính xác.',
     images: ['/images/logos/twitter-image.jpg'],
   },
@@ -227,4 +227,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-} 
+}

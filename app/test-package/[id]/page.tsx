@@ -28,12 +28,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return new Intl.NumberFormat('vi-VN').format(price);
   };
 
+  // Generate SEO-optimized titles based on package type
+  const generateOptimizedTitle = (pkg: any) => {
+    const titleMap: { [key: string]: string } = {
+      'general-female-basic': 'Tầm Soát Ung Thư Phụ Nữ | MedNova',
+      'general-male-basic': 'Tầm Soát Ung Thư Nam Giới | MedNova',
+      'premium-female': 'Xét Nghiệm Gan Mật Chuyên Sâu | MedNova',
+      'premium-male': 'Xét Nghiệm Tổng Quát Cơ Bản | MedNova',
+      'general-advanced': 'Xét Nghiệm Tổng Quát Nâng Cao | MedNova',
+      'comprehensive-male': 'Xét Nghiệm Toàn Diện Nam Giới | MedNova',
+      'comprehensive-female': 'Xét Nghiệm Toàn Diện Phụ Nữ | MedNova',
+      'stroke-risk': 'Xét Nghiệm Nguy Cơ Đột Quỵ | MedNova',
+    };
+    
+    return titleMap[pkg.id] || `${pkg.name} | MedNova`;
+  };
+
   return {
-    title: `${testPackage.name} | Gói Xét Nghiệm MedNova`,
+    title: generateOptimizedTitle(testPackage),
     description: `Chi tiết gói xét nghiệm ${testPackage.name} với ${testPackage.indicators} chỉ số quan trọng. Giá: ${formatPrice(testPackage.price)} VND. Lấy mẫu tại nhà miễn phí, kết quả ${testPackage.resultTime}.`,
     keywords: [testPackage.name, 'gói xét nghiệm', testPackage.category, 'MedNova', 'xét nghiệm y khoa'],
     openGraph: {
-      title: `${testPackage.name} | Gói Xét Nghiệm MedNova`,
+      title: generateOptimizedTitle(testPackage),
       description: `Chi tiết gói xét nghiệm ${testPackage.name} với ${testPackage.indicators} chỉ số quan trọng. Giá: ${formatPrice(testPackage.price)} VND.`,
       url: `https://mednovanhatrang.com//test-package/${id}`,
       type: 'website',
