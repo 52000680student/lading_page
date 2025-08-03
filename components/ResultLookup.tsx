@@ -44,7 +44,7 @@ const ResultLookup: React.FC = () => {
               Đăng nhập để truy cập hệ thống tra cứu.
             </p>
             <Button
-              onClick={() => handleUserTypeSelect('partner')}
+              onClick={() => window.location.href = '/results/view'}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200"
             >
               Đăng Nhập Đối Tác
