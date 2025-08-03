@@ -7,6 +7,8 @@ import { getValidToken } from '@/utils/auth';
 interface DetailedResultViewProps {
   resultId: number;
   onBack: () => void;
+  showBackButton?: boolean;
+  patientInfo?: PatientInfo;
 }
 
 interface ProfileData {
@@ -74,12 +76,12 @@ interface FinalComment {
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
 
-const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBack }) => {
+const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBack, showBackButton = true, patientInfo: providedPatientInfo }) => {
   const [profileData, setProfileData] = useState<ProfileData[]>([]);
   const [testProfiles, setTestProfiles] = useState<TestProfile[]>([]);
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [finalComment, setFinalComment] = useState<FinalComment | null>(null);
-  const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(null);
+  const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(providedPatientInfo || null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedSuites, setExpandedSuites] = useState<Set<string>>(new Set());
@@ -87,6 +89,12 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
   useEffect(() => {
     fetchDetailedData();
   }, [resultId]);
+
+  useEffect(() => {
+    if (providedPatientInfo) {
+      setPatientInfo(providedPatientInfo);
+    }
+  }, [providedPatientInfo]);
 
   const fetchDetailedData = async () => {
     try {
@@ -190,22 +198,6 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
         setFinalComment(commentData);
       }
 
-      // Step 8: Fetch Patient Information
-      const patientResponse = await fetch(
-        `${BASE_URL}/api/la/v1/results/${resultId}/patient-info`,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-
-      if (patientResponse.ok) {
-        const patientData: PatientInfo = await patientResponse.json();
-        setPatientInfo(patientData);
-      }
-
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -233,19 +225,6 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
         return 'text-red-600 text-right';
       default:
         return 'text-black text-center';
-    }
-  };
-
-  const getTextColor = (color: string) => {
-    switch (color) {
-      case '0':
-        return 'text-black';
-      case '1':
-        return 'text-blue-600';
-      case '2':
-        return 'text-red-600';
-      default:
-        return 'text-black';
     }
   };
 
@@ -278,55 +257,51 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
     };
     
     return (
-      <tr key={test.id} className={`border-b border-gray-200 ${isChild ? 'bg-gray-50' : 'bg-white'}`}>
-        <td className={`px-4 py-3 text-sm text-center sticky left-0 bg-white z-10 ${isChild ? 'pl-8 bg-gray-50' : ''}`}>
+      <tr key={test.id} className={`group border-b border-gray-200 hover:bg-blue-50 transition-colors duration-150 ${isChild ? 'bg-gray-50' : 'bg-white'}`}>
+        <td className={`px-3 py-2 text-sm text-center ${isChild ? 'pl-6' : ''}`}>
           {index + 1}
         </td>
-        <td className={`px-4 py-3 text-sm sticky left-16 bg-white z-10 ${isChild ? 'pl-8 bg-gray-50' : ''}`}>
-          <div className={`font-medium text-gray-900`}>{test.name}</div>
+        <td className={`px-3 py-2 text-sm ${isChild ? 'pl-6' : ''}`}>
+          <div className={`font-medium text-gray-900 text-xs leading-tight`}>{test.name}</div>
           {test.sampleTypeName && (
-            <div className="text-xs text-gray-400">Mẫu: {test.sampleTypeName}</div>
+            <div className="text-xs text-gray-400 mt-1">Mẫu: {test.sampleTypeName}</div>
           )}
         </td>
-        <td className={`px-4 py-3 text-sm sticky left-80 bg-white z-10 ${isChild ? 'bg-gray-50' : ''}`}>
-          <div className={'text-gray-600'}>{test.code}</div>
+        <td className="px-3 py-2 text-sm">
+          <div className={'text-gray-600 text-xs'}>{test.code}</div>
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {patientInfo?.phoneNumber || '-'}
-        </td>
-        <td className="px-4 py-3 text-sm">
+        <td className="px-3 py-2 text-sm">
           {result ? (
-            <div className={`font-medium ${getResultStyle(result.color)}`}>
+            <div className={`font-medium text-xs ${getResultStyle(result.color)}`}>
               {result.result || '-'}
             </div>
           ) : (
-            <span className="text-gray-400">-</span>
+            <span className="text-gray-400 text-xs">-</span>
           )}
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result?.resultText || '-'}
+        <td className="px-3 py-2 text-sm text-gray-600">
+          <div className="text-xs">{result?.resultText || '-'}</div>
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result?.oldResult || '-'}
+        <td className="px-3 py-2 text-sm text-gray-600">
+          <div className="text-xs">{result?.unit || '-'}</div>
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result?.unit || '-'}
+        <td className="px-3 py-2 text-sm text-gray-600">
+          <div className="text-xs">
+            {result?.lowerLimit && result?.higherLimit 
+              ? `${result.lowerLimit} - ${result.higherLimit}`
+              : result?.lowerLimit || result?.higherLimit || '-'
+            }
+          </div>
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result?.higherLimit || '-'}
+        <td className="px-3 py-2 text-sm text-gray-600">
+          <div className="text-xs">{result?.normalRange || '-'}</div>
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result?.lowerLimit || '-'}
+        <td className="px-3 py-2 text-sm text-gray-600">
+          <div className="text-xs">{result ? getStateText(result.state) : '-'}</div>
         </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result?.normalRange || '-'}
-        </td>
-        <td className="px-4 py-3 text-sm text-gray-600">
-          {result ? getStateText(result.state) : '-'}
-        </td>
-        <td className="px-4 py-3 text-sm text-center">
+        <td className="px-3 py-2 text-sm text-center">
           {result?.download ? (
-            <span className="text-green-600">✓</span>
+            <span className="text-green-600 text-lg">✓</span>
           ) : (
             <span className="text-gray-400">-</span>
           )}
@@ -341,10 +316,10 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
     return (
       <React.Fragment key={suite.id}>
         <tr className="border-b border-gray-200 bg-blue-50">
-          <td className="px-4 py-3 text-sm text-center sticky left-0 bg-blue-50 z-10">
+          <td className="px-3 py-3 text-sm text-center">
             {suiteIndex + 1}
           </td>
-          <td className="px-4 py-3 sticky left-16 bg-blue-50 z-10" colSpan={2}>
+          <td className="px-3 py-3" colSpan={2}>
              <button
                onClick={() => toggleSuiteExpansion(suite.code)}
                className="flex items-center space-x-2 text-left w-full hover:text-blue-700"
@@ -355,12 +330,12 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
                  <ChevronRight className="w-4 h-4 text-blue-600" />
                )}
                <div>
-                 <div className="font-semibold text-blue-900">{suite.name}</div>
+                 <div className="font-semibold text-blue-900 text-sm">{suite.name}</div>
                  <div className="text-xs text-blue-600">{suite.code}</div>
                </div>
              </button>
            </td>
-           <td className="px-4 py-3" colSpan={10}>
+           <td className="px-3 py-3" colSpan={7}>
            </td>
         </tr>
         {isExpanded && suite.children.map((child, childIndex) => renderTestRow(child, true, childIndex))}
@@ -371,11 +346,11 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 pt-32 pb-20">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-1 max-w-none min-w-[1100px]">
           <div className="flex justify-center items-center py-12">
             <div className="flex items-center space-x-3">
               <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-lg text-gray-600">Đang tải chi tiết kết quả...</span>
+              <span className="text-lg text-center text-gray-600">Đang tải chi tiết kết quả...</span>
             </div>
           </div>
         </div>
@@ -386,7 +361,7 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 pt-32 pb-20">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-2 max-w-none">
           <div className="bg-white rounded-lg shadow-md p-6">
             <button
               onClick={onBack}
@@ -413,54 +388,59 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
 
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-20">
-      <div className="container mx-auto px-4">
+      <div className="w-full px-2 max-w-none">
         <div className="bg-white rounded-lg shadow-md">
           {/* Header */}
           <div className="p-6 border-b border-gray-200">
-            <button
-              onClick={onBack}
-              className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 mb-4"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Quay lại danh sách</span>
-            </button>
+            {showBackButton && (
+              <button
+                onClick={onBack}
+                className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 mb-4"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Quay lại danh sách</span>
+              </button>
+            )}
             <h1 className="text-2xl font-bold text-gray-900">Chi tiết kết quả xét nghiệm</h1>
             <p className="text-gray-600 mt-1">ID: {resultId}</p>
           </div>
 
           {/* Administrative Information Section */}
           {patientInfo && (
-            <div className="p-6 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">Thông tin hành chính</h3>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Họ và tên:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.fullName}</p>
+            <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                <div className="w-1 h-6 bg-blue-600 rounded-full mr-3"></div>
+                Thông tin hành chính
+              </h3>
+              <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-3">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Họ và tên</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.fullName}</p>
                   </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">SID:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.sid}</p>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">SID</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.sid}</p>
                   </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Số điện thoại:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.phoneNumber}</p>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Số điện thoại</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.phoneNumber}</p>
                   </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Ngày sinh:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.dateOfBirth}</p>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Ngày sinh</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.dateOfBirth}</p>
                   </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Giới tính:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.gender}</p>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Giới tính</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.gender}</p>
                   </div>
-                  <div>
-                    <span className="text-sm font-medium text-gray-600">Ngày yêu cầu:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.requestDate}</p>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Ngày yêu cầu</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.requestDate}</p>
                   </div>
-                  <div className="md:col-span-2 lg:col-span-3">
-                    <span className="text-sm font-medium text-gray-600">Địa chỉ:</span>
-                    <p className="text-sm text-gray-900">{patientInfo.address}</p>
+                  <div className="col-span-2 md:col-span-4 lg:col-span-6 flex flex-col pt-2 border-t border-gray-100">
+                    <span className="text-xs font-semibold text-blue-600 uppercase tracking-wide">Địa chỉ</span>
+                    <p className="text-sm font-medium text-gray-900 mt-1">{patientInfo.address}</p>
                   </div>
                 </div>
               </div>
@@ -468,48 +448,39 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({ resultId, onBac
           )}
 
           {/* Results Table */}
-          <div className="p-6">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[1200px]">
-                <thead className="bg-gray-50">
+          <div className="p-4">
+            <div className="w-full shadow-lg rounded-lg overflow-x-auto">
+              <table className="w-full min-w-[1200px] table-fixed">
+                <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-300">
                   <tr>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16 sticky left-0 bg-gray-50 z-10">
+                    <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
                       STT
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-64 sticky left-16 bg-gray-50 z-10">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-64">
                       Tên XN
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32 sticky left-80 bg-gray-50 z-10">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
                       Mã XN
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
-                      SĐT
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-60">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
                       Kết quả ĐT
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">
                       Kết quả ĐL
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">
-                      Kết quả cũ
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
                       ĐVT
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
-                      Ngưỡng trên
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">
+                      Ngưỡng dưới/trên
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
-                      Ngưỡng dưới
-                    </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">
                       KTC
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-28">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
                       Trạng thái
                     </th>
-                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
+                    <th className="px-3 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
                       Tải xuống
                     </th>
                   </tr>

@@ -1,31 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Users, User } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import PartnerLookup from '@/components/PartnerLookup';
-import CustomerLookup from '@/components/CustomerLookup';
-
-type UserType = 'partner' | 'customer' | null;
 
 const ResultLookup: React.FC = () => {
-  const [selectedUserType, setSelectedUserType] = useState<UserType>(null);
+  const router = useRouter();
 
-  const handleUserTypeSelect = (type: UserType) => {
-    setSelectedUserType(type);
+  const handlePartnerClick = () => {
+    router.push('/results/partner/login');
   };
 
-  const handleBack = () => {
-    setSelectedUserType(null);
+  const handleCustomerClick = () => {
+    router.push('/results/customer');
   };
-
-  if (selectedUserType === 'partner') {
-    return <PartnerLookup onBack={handleBack} />;
-  }
-
-  if (selectedUserType === 'customer') {
-    return <CustomerLookup onBack={handleBack} />;
-  }
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -44,7 +32,7 @@ const ResultLookup: React.FC = () => {
               Đăng nhập để truy cập hệ thống tra cứu.
             </p>
             <Button
-              onClick={() => window.location.href = '/results/view'}
+              onClick={handlePartnerClick}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200"
             >
               Đăng Nhập Đối Tác
@@ -66,7 +54,7 @@ const ResultLookup: React.FC = () => {
               trực tiếp mà không cần đăng nhập.
             </p>
             <Button
-              onClick={() => handleUserTypeSelect('customer')}
+              onClick={handleCustomerClick}
               className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200"
             >
               Tra Cứu Kết Quả
