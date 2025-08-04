@@ -197,16 +197,19 @@ const useDetailedResultData = (resultId: number) => {
       const [profileResponse, testResultsResponse, commentResponse] =
         await Promise.allSettled([
           fetch(
-            `${BASE_URL}/api/la/v1/results/${resultId}/profile-updateresults?isTestSend=false`,
+            `${BASE_URL}/api/la/v1/results-landing-page/${resultId}/profile-updateresults?isTestSend=false`,
             { headers }
           ),
           fetch(
-            `${BASE_URL}/api/la/v1/results/${resultId}/test-updateresults?isTestSend=false&isMBTest=false`,
+            `${BASE_URL}/api/la/v1/results-landing-page/${resultId}/test-updateresults?isTestSend=false&isMBTest=false`,
             { headers }
           ),
-          fetch(`${BASE_URL}/api/la/v1/results/${resultId}/result-comment`, {
-            headers,
-          }),
+          fetch(
+            `${BASE_URL}/api/la/v1/results-landing-page/${resultId}/result-comment`,
+            {
+              headers,
+            }
+          ),
         ]);
 
       // Handle profile data
