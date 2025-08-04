@@ -221,8 +221,24 @@ export default function PartnerViewPage() {
     router.push('/results');
   };
 
-  const handleResultClick = (resultId: number) => {
-    router.push(`/results/partner/view/detail/${resultId}`);
+  const handleResultClick = (result: ResultItem) => {
+    // Create PatientInfo object from ResultItem
+    const patientInfo = {
+      fullName: result.patientName,
+      address: result.address,
+      sid: result.sid,
+      phoneNumber: '', // Not available in ResultItem, will be empty
+      requestDate: formatDate(result.requestDate),
+      dateOfBirth: formatDate(result.dob),
+      gender: '' // Not available in ResultItem, will be empty
+    };
+    
+    // Encode patient info as URL search params
+    const searchParams = new URLSearchParams({
+      patientInfo: JSON.stringify(patientInfo)
+    });
+    
+    router.push(`/results/partner/view/detail/${result.id}?${searchParams.toString()}`);
   };
 
   const formatDate = (dateString: string) => {
@@ -332,7 +348,7 @@ export default function PartnerViewPage() {
                   <div
                     key={result.id}
                     ref={isLast ? lastResultRef : null}
-                    onClick={() => handleResultClick(result.id)}
+                    onClick={() => handleResultClick(result)}
                     className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer"
                   >
                     <div className="flex justify-between items-start mb-4">

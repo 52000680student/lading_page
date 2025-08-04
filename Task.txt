@@ -1,19 +1,52 @@
-On customer/page.tsx
-1. Use cipherLookupValue, to call api v1/results-landing-page/{cipherLookupValue} with method is get
-Response example:{
-"resultId": 308250003,
-"familyName": "Nguyen Van A",
-"dateOfBirth": "1990-05-20",
-"gender": "Male",
-"phoneNumber": "0912345678",
-"email": "nguyenvana@example.com"
+In DetailedResultView.tsx, please implement the missing logic as follows:
+
+First, call /api/la/v1/results/${resultId}/profile-updateresults?isTestSend=false. If the response is empty (i.e., no profiles), skip calling /profiles/getFullTestProfileByListCode.
+
+After that, call /api/la/v1/results/${resultId}/test-updateresults?isTestSend=false&isMBTest=false to retrieve the list of test results.
+
+From that test result list, find all entries where profileCode == null. For each, extract testCode and effectiveTime and construct a payload:
+{
+  TestCode: "<testCode>",
+  EffectiveTime: "<effectiveTime>"
 }
-Use it to push to DetailedResultView with resultId and extract from response an object with the following modal interface PatientInfo {
-fullName: string;
-address: string;
-sid: string;
-phoneNumber: string;
-requestDate: string;
-dateOfBirth: string;
-gender: string;
-}, to pass into DetailedResultView
+
+Response Example:
+[
+    {
+        "shortName": null,
+        "id": 8,
+        "testCode": "BIO005",
+        "testName": "Đo hoạt độ ALT (GPT) [Máu]",
+        "release": null,
+        "quickCode": null,
+        "customName": null,
+        "type": 0,
+        "typeName": null,
+        "reportTypeName": "Thường Quy",
+        "reportType": "TQ",
+        "sampleType": "H",
+        "sampleTypeName": "Máu [Heparin lithium]",
+        "subSID": null,
+        "profiles": null,
+        "profileName": null,
+        "category": "BIO",
+        "categoryName": "HÓA SINH > Sinh hóa",
+        "displayOrder": 0,
+        "tags": null,
+        "remark": null,
+        "inUse": true,
+        "testMethod": null,
+        "iso": false,
+        "defaultValue": "",
+        "createdBy": 1,
+        "createdDate": "2025-07-09T23:52:59.8567495",
+        "updatedBy": 1,
+        "unit": "U/L",
+        "updatedDate": "2025-07-22T09:17:25.5747964",
+        "profileCode": null
+    },
+    .......
+]
+Use this to call /api/la/v1/tests/GetTestByListCode. Do not call this API if there is no test with profileCode == null.
+
+When rendering the test rows via renderTestRow, for tests not belonging to any profile (i.e., profileCode == null), use the data returned from /tests/GetTestByListCode (matched via testCode) to render test name, sample type, etc.

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Eye, EyeOff, User, Lock } from 'lucide-react';
-import Button from '@/components/ui/Button';
 import { saveToken, getValidToken } from '@/utils/auth';
 import { loginPartner } from '@/utils/partnerApi';
 

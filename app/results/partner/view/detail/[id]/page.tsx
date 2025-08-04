@@ -1,15 +1,40 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { ArrowLeft, LogOut } from 'lucide-react';
 import { getValidToken, removeToken } from '@/utils/auth';
 import DetailedResultView from '@/components/DetailedResultView';
 
+interface PatientInfo {
+  fullName: string;
+  address: string;
+  sid: string;
+  phoneNumber: string;
+  requestDate: string;
+  dateOfBirth: string;
+  gender: string;
+}
+
 export default function PartnerDetailPage() {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const resultId = params.id as string;
+  const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(null);
+
+  // Extract patient info from search parameters
+  useEffect(() => {
+    const patientInfoParam = searchParams.get('patientInfo');
+    if (patientInfoParam) {
+      try {
+        const decodedPatientInfo = JSON.parse(patientInfoParam) as PatientInfo;
+        setPatientInfo(decodedPatientInfo);
+      } catch (error) {
+        console.error('Failed to parse patient info:', error);
+      }
+    }
+  }, [searchParams]);
 
   // Check authentication
   useEffect(() => {
@@ -48,11 +73,11 @@ export default function PartnerDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 pb-20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Header with Back and Logout */}
-          <div className="flex justify-between items-center mb-8">
+    <>
+      {/* Header with Back and Logout - positioned absolutely */}
+      <div className="fixed top-20 left-0 right-0 z-10 bg-gray-50 border-b border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center py-4">
             <button
               onClick={handleBack}
               className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
@@ -69,25 +94,18 @@ export default function PartnerDetailPage() {
               <span className="font-medium">Đăng xuất</span>
             </button>
           </div>
-
-          {/* Page Title */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              Chi Tiết Kết Quả
-            </h1>
-            <p className="text-gray-600">
-              Xem chi tiết kết quả xét nghiệm
-            </p>
-          </div>
-
-          {/* Detailed Result View */}
-          <DetailedResultView 
-            resultId={parseInt(resultId)} 
-            onBack={handleBack}
-            showBackButton={false}
-          />
         </div>
       </div>
-    </div>
+
+      {/* Detailed Result View - full width like customer page */}
+      <div className="pt-20">
+        <DetailedResultView 
+          resultId={parseInt(resultId)} 
+          onBack={handleBack}
+          showBackButton={false}
+          patientInfo={patientInfo || undefined}
+        />
+      </div>
+    </>
   );
 }

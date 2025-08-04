@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Search } from 'lucide-react';
-import CryptoJS from 'crypto-js';
 import DetailedResultView from '@/components/DetailedResultView';
 
 interface PatientInfo {
