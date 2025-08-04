@@ -1,52 +1,39 @@
-In DetailedResultView.tsx, please implement the missing logic as follows:
-
-First, call /api/la/v1/results/${resultId}/profile-updateresults?isTestSend=false. If the response is empty (i.e., no profiles), skip calling /profiles/getFullTestProfileByListCode.
-
-After that, call /api/la/v1/results/${resultId}/test-updateresults?isTestSend=false&isMBTest=false to retrieve the list of test results.
-
-From that test result list, find all entries where profileCode == null. For each, extract testCode and effectiveTime and construct a payload:
-{
-  TestCode: "<testCode>",
-  EffectiveTime: "<effectiveTime>"
-}
-
-Response Example:
+Please analyze the DetailedResultView.tsx file to complete this task for me.
+1. Let's add a download result button in the DetailedResultView.tsx screen. And this button will only be enabled when all the elements in testResults have state = 95 , which means they are signed.
+2. The action when clicking that button will be:
+- Call the following api: {BASE_URL}/api/fr/v1/files/{resultId}/file-names, will get a response like this:
+```
 [
     {
-        "shortName": null,
-        "id": 8,
-        "testCode": "BIO005",
-        "testName": "Đo hoạt độ ALT (GPT) [Máu]",
-        "release": null,
-        "quickCode": null,
-        "customName": null,
-        "type": 0,
-        "typeName": null,
-        "reportTypeName": "Thường Quy",
-        "reportType": "TQ",
-        "sampleType": "H",
-        "sampleTypeName": "Máu [Heparin lithium]",
-        "subSID": null,
-        "profiles": null,
-        "profileName": null,
-        "category": "BIO",
-        "categoryName": "HÓA SINH > Sinh hóa",
-        "displayOrder": 0,
-        "tags": null,
-        "remark": null,
-        "inUse": true,
-        "testMethod": null,
-        "iso": false,
-        "defaultValue": "",
-        "createdBy": 1,
-        "createdDate": "2025-07-09T23:52:59.8567495",
-        "updatedBy": 1,
-        "unit": "U/L",
-        "updatedDate": "2025-07-22T09:17:25.5747964",
-        "profileCode": null
-    },
-    .......
+        "id": 543,
+        "service": "LA",
+        "module": "TestResult",
+        "itemValue": 414,
+        "itemAction": "Export",
+        "fileName": "414_TQ.pdf",
+        "createdBy": 1000408,
+        "createdDate": "2025-08-04T08:36:16.1543948",
+        "updatedBy": 1000408,
+        "updatedDate": "2025-08-04T08:36:17.4635769",
+        "sendHis": null,
+        "updateHis": null,
+        "hisMessage": null,
+        "status": 9
+    }
 ]
-Use this to call /api/la/v1/tests/GetTestByListCode. Do not call this API if there is no test with profileCode == null.
-
-When rendering the test rows via renderTestRow, for tests not belonging to any profile (i.e., profileCode == null), use the data returned from /tests/GetTestByListCode (matched via testCode) to render test name, sample type, etc.
+```
+- If the response is not an empty array, the first item will be taken. And the id field will be taken to continue calling this API: /api/la/v1/global/files/{id}/GetFileByIdWithName, this API will have the following response:
+```
+{
+    "fileName": "414_TQ.pdf",
+    "data": {
+        "fileContents": "JVBERi0xLjUNCiXi48/TDQoyIDAgb2JqDQo8PA0KL1R5cGUgL1hPYmplY3QNCi9TdWJ0eXBlIC9JbWFnZQ0"
+        "contentType": "application/pdf",
+        "fileDownloadName": "414_TQ.pdf",
+        "lastModified": null,
+        "entityTag": null,
+        "enableRangeProcessing": false
+    }
+}
+```
+Please use fileContent in the data object to download this pdf file.

@@ -240,7 +240,6 @@ const PartnerLookup: React.FC<PartnerLookupProps> = ({ onBack }) => {
       console.error('Error loading results:', error);
       if (error instanceof Error && error.message === 'Token expired') {
         handleLogout();
-        alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
       } else {
         alert('Có lỗi xảy ra khi tải kết quả. Vui lòng thử lại.');
       }

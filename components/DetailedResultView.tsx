@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { ArrowLeft, ChevronDown, ChevronRight, FileText } from "lucide-react";
+import { ArrowLeft, ChevronDown, ChevronRight, FileText, Download } from "lucide-react";
 import { getValidToken } from "@/utils/auth";
 
 // Types
@@ -576,6 +576,7 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
     providedPatientInfo || null
   );
   const [expandedSuites, setExpandedSuites] = useState<Set<string>>(new Set());
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     if (providedPatientInfo) {
@@ -602,6 +603,92 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
     [testResults]
   );
 
+  // Check if all test results are signed (state = 95)
+  const allResultsSigned = useMemo(() => {
+    return testResults.length > 0 && testResults.every(result => result.state === 95);
+  }, [testResults]);
+
+  // Download result function
+  const handleDownloadResult = useCallback(async () => {
+    if (!allResultsSigned || isDownloading) return;
+
+    try {
+      setIsDownloading(true);
+      const token = getValidToken();
+      if (!token) {
+        throw new Error("");
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      // Step 1: Get file names
+      const fileNamesResponse = await fetch(
+        `${BASE_URL}/api/fr/v1/files/${resultId}/file-names`,
+        { headers }
+      );
+
+      if (!fileNamesResponse.ok) {
+        throw new Error("Không thể lấy tên file");
+      }
+
+      const fileNamesData = await fileNamesResponse.json();
+      
+      if (!Array.isArray(fileNamesData) || fileNamesData.length === 0) {
+        throw new Error("Không có file nào để tải xuống");
+      }
+
+      // Step 2: Get the first file's ID and download it
+      const firstFile = fileNamesData[0];
+      const fileId = firstFile.id;
+
+      const fileResponse = await fetch(
+        `${BASE_URL}/api/la/v1/global/files/${fileId}/GetFileByIdWithName`,
+        { headers }
+      );
+
+      if (!fileResponse.ok) {
+        throw new Error("Không thể tải xuống file");
+      }
+
+      const fileData = await fileResponse.json();
+      
+      if (!fileData.data || !fileData.data.fileContents) {
+        throw new Error("Không có dữ liệu file hợp lệ");
+      }
+
+      // Step 3: Convert base64 to blob and download
+      const base64Data = fileData.data.fileContents;
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: fileData.data.contentType });
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileData.fileName || fileData.data.fileDownloadName || 'result.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+    } catch (err) {
+      console.error('Download error:', err);
+      alert(`Lỗi tải xuống: ${err instanceof Error ? err.message : 'Có lỗi xảy ra'}`);
+    } finally {
+      setIsDownloading(false);
+    }
+  }, [resultId, allResultsSigned, isDownloading]);
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -625,10 +712,36 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
                 <span>Quay lại danh sách</span>
               </button>
             )}
-            <h1 className="text-2xl font-bold text-gray-900">
-              Chi tiết kết quả xét nghiệm
-            </h1>
-            <p className="text-gray-600 mt-1">ID: {resultId}</p>
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Chi tiết kết quả xét nghiệm
+                </h1>
+                <p className="text-gray-600 mt-1">ID: {resultId}</p>
+              </div>
+              <button
+                onClick={handleDownloadResult}
+                disabled={!allResultsSigned || isDownloading}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                  allResultsSigned && !isDownloading
+                    ? "bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+                title={!allResultsSigned ? "Tất cả kết quả phải được ký số (trạng thái 95) để tải xuống" : "Tải xuống kết quả"}
+              >
+                {isDownloading ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Đang tải...</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" />
+                    <span>Tải xuống kết quả</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Patient Information */}

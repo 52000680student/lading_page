@@ -176,8 +176,7 @@ export default function PartnerViewPage() {
     } catch (error) {
       console.error('Error loading results:', error);
       if (error instanceof Error && error.message === 'Token expired') {
-        router.replace('/results/partner/login');
-        alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+        handleLogout();
       } else {
         alert('Có lỗi xảy ra khi tải kết quả. Vui lòng thử lại.');
       }
