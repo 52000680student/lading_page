@@ -299,9 +299,10 @@ const PartnerLookup: React.FC<PartnerLookupProps> = ({ onBack }) => {
   // Show detailed view if selected
   if (showDetailedView && selectedResultId) {
     return (
-      <DetailedResultView 
+      <DetailedResultView
         resultId={selectedResultId} 
-        onBack={handleBackToList} 
+        onBack={handleBackToList}
+        isCustomer={false} 
       />
     );
   }

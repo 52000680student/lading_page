@@ -104,6 +104,7 @@ export default function PartnerDetailPage() {
           onBack={handleBack}
           showBackButton={false}
           patientInfo={patientInfo || undefined}
+          isCustomer={false}
         />
       </div>
     </>
