@@ -289,7 +289,7 @@ const useDetailedResultData = (resultId: number, isCustomer: boolean) => {
         }));
 
         const testByListCodeResponse = await fetch(
-          `${BASE_URL}/api/la/v1/tests/GetTestByListCode`,
+          `${BASE_URL}/api/la/v1/results-landing-page/GetTestByListCode`,
           {
             method: "POST",
             headers,
@@ -656,7 +656,7 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
       const fileId = firstFile.id;
 
       const fileResponse = await fetch(
-        `${BASE_URL}/api/la/v1/global/files/${fileId}/GetFileByIdWithName`,
+        `${BASE_URL}/api/la/v1/results-landing-page/${fileId}/GetFileByIdWithName`,
         { headers }
       );
 
