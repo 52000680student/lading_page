@@ -11,25 +11,25 @@ const fields = [
   {
     "key": "testPackages",
     "label": "Test Packages",
-    "type": "string",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "faq",
     "label": "FAQ",
-    "type": "string",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "healthInfo",
     "label": "Health Info",
-    "type": "string",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "about",
     "label": "About",
-    "type": "string",
+    "type": "richtext",
     "required": true
   },
   {

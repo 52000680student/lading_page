@@ -1,68 +1,69 @@
-✅ Prompt for AI Agent: Extend Existing Next.js App with Admin Dashboard Using Prisma
+🧠 AI Agent Prompt: Implement Rich Text Editing with TinyMCE in Next.js Admin Panel
 
-📘 Project Context
+🔹 Context
+I have a Next.js application that includes an /admin route for content management. The application currently uses Prisma as the ORM for accessing and editing data via API.
 
-- Framework: Next.js with TypeScript
-- Database: Prisma (with schema already defined)
-- Data access: via prisma_client
-- Objective: Build an integrated admin dashboard to manage Prisma models
-- Admin auth: Use simple login form with fixed credentials (admin/admin)
-- Folder structure: Extend the current project, do not create a new app
+The existing editing functionality uses basic modals and plain text input. I would like to upgrade the editing experience to a rich text editor using TinyMCE, so that admin users can style text (e.g., bold, italic, links, etc.).
 
-🎯 Tasks
+🎯 Objective
+Upgrade the text editing component in /admin to use TinyMCE for rich text editing. The TinyMCE editor should be:
+- Embedded in the admin page.
+- Configured to support common formatting options.
+- Securely initialized using the environment variable: NEXT_PUBLIC_TINY_CLOUD_KEY.
+- Integrated with the existing data handling flow (Prisma + API routes).
+- The edited content should be saved to the database as HTML.
 
-1. 🛠 Add Route /admin to Existing App
+✅ Requirements
 
-   - Create a new route `/admin` in the existing Next.js project
-   - This route will serve as the entry point to the admin dashboard
+1. Install TinyMCE
+Use the official TinyMCE React integration:
 
-2. 🔒 Setup Login Authentication
+    npm install @tinymce/tinymce-react
 
-   - Add a login page at `/admin/login`
-   - Simple login form:
-     - Username: `admin`
-     - Password: `admin`
-   - On successful login:
-     - Store a session (use cookies or localStorage)
-     - Redirect to `/admin`
-   - Protect all `/admin/*` routes so that unauthenticated users are redirected to `/admin/login`
+2. Configure the .env File
+Ensure the .env.local file includes the following key:
 
-3. 🧭 Build Admin Interface at `/admin`
+    NEXT_PUBLIC_TINY_CLOUD_KEY=your_tinymce_api_key_here
 
-   - Display a sidebar or menu that lists all Prisma models (e.g., User, Post)
-   - Each model name should be a clickable link to `/admin/[model-name]`
+This key will be used to initialize TinyMCE on the client side.
 
-4. 📋 CRUD UI for Each Model
+3. Update the Edit Modal Component
+Replace the existing <textarea> or text input with TinyMCE.
 
-   - For each model:
-     - Table view to display entries
-     - Button/modal/form to Create, Edit, Delete entries
-   - Use Prisma client to interact with the database through internal API routes
+Example EditModal.tsx:
 
-5. 🔌 API Routes for Data Manipulation
+    import { Editor } from '@tinymce/tinymce-react';
+    import { useRef } from 'react';
 
-   - Create internal API routes in `/pages/api/admin/[model]/[action].ts` or use App Router if applicable
-     - `GET` - list entries
-     - `POST` - create entry
-     - `PUT` - update entry
-     - `DELETE` - delete entry
+    const EditModal = ({ initialValue, onSave }) => {
+      const editorRef = useRef(null);
 
-6. 🎨 UI/UX
+      const handleSave = () => {
+        const content = editorRef.current?.getContent();
+        onSave(content); // Send content (HTML) to API
+      };
 
-   - Use a UI library like TailwindCSS or Bootstrap to ensure clean and simple design
-   - Show error/success messages after actions (e.g., toast or alert)
-   - Use modals for forms when possible
+      return (
+        <div>
+          <Editor
+            apiKey={process.env.NEXT_PUBLIC_TINY_CLOUD_KEY}
+            onInit={(evt, editor) => editorRef.current = editor}
+            initialValue={initialValue}
+            init={{
+              height: 400,
+              menubar: false,
+              plugins: [
+                'advlist autolink lists link charmap preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor |                 alignleft aligncenter alignright alignjustify |                 bullist numlist outdent indent | removeformat | help'
+            }}
+          />
+          <button onClick={handleSave}>Save</button>
+        </div>
+      );
+    };
 
-📦 Deliverables
-
-- `/admin` route added to existing Next.js app
-- Login page with `admin/admin` check
-- Protected admin interface with model menu and CRUD pages
-- API endpoints for data management using Prisma
-- Clean and functional UI for manipulating database entries
-
-✅ Optional Enhancements
-
-- Pagination and search filters in table views
-- Validation on form inputs
-- Role-based access control in the future
+Make sure to adapt this component according to your modal logic and styling.

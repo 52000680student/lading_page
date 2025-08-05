@@ -10,19 +10,19 @@ const fields = [
   },
   {
     "key": "address",
-    "label": "Address",
-    "type": "string",
+    "label": "Địa chỉ",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "hours",
-    "label": "Hours",
-    "type": "string",
+    "label": "Giờ",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "contactId",
-    "label": "Contact ID",
+    "label": "ID liên hệ",
     "type": "string",
     "required": true
   }

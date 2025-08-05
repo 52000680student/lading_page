@@ -10,18 +10,18 @@ const fields = [
   },
   {
     "key": "copyright",
-    "label": "Copyright",
-    "type": "string",
+    "label": "Bản quyền",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "createdAt",
-    "label": "Created At",
+    "label": "Thời gian tạo",
     "type": "datetime"
   },
   {
     "key": "updatedAt",
-    "label": "Updated At",
+    "label": "Thời gian cập nhật",
     "type": "datetime"
   }
 ]

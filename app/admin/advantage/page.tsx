@@ -10,8 +10,8 @@ const fields = [
   },
   {
     "key": "title",
-    "label": "Title",
-    "type": "string",
+    "label": "Tiêu đề",
+    "type": "richtext",
     "required": true
   },
   {
@@ -22,18 +22,18 @@ const fields = [
   },
   {
     "key": "order",
-    "label": "Order",
+    "label": "Thứ tự",
     "type": "number",
     "required": true
   },
   {
     "key": "createdAt",
-    "label": "Created At",
+    "label": "Thời gian tạo",
     "type": "datetime"
   },
   {
     "key": "updatedAt",
-    "label": "Updated At",
+    "label": "Thời gian cập nhật",
     "type": "datetime"
   }
 ]

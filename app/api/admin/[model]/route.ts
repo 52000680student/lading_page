@@ -81,6 +81,28 @@ export async function PUT(
     const body = await request.json()
     const { id, ...updateData } = body
     
+    // Handle special case for contact model with locations
+    if (model.toLowerCase() === 'contact' && updateData.locations) {
+      const { locations, ...contactData } = updateData
+      
+      const data = await modelClient.update({
+        where: { id },
+        data: {
+          ...contactData,
+          locations: {
+            deleteMany: {},
+            create: locations.map((location: any) => ({
+              id: location.id,
+              address: location.address,
+              hours: location.hours
+            }))
+          }
+        }
+      })
+      
+      return NextResponse.json(data)
+    }
+    
     const data = await modelClient.update({
       where: { id },
       data: updateData

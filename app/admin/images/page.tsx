@@ -10,36 +10,36 @@ const fields = [
   },
   {
     "key": "banner",
-    "label": "Banner",
-    "type": "string",
+    "label": "Hình ảnh banner",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "aboutBanner",
-    "label": "About Banner",
-    "type": "string",
+    "label": "Hình ảnh giới thiệu",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "facility",
-    "label": "Facility",
-    "type": "string",
+    "label": "Hình ảnh dịch vụ",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "mainImage",
-    "label": "Main Image",
-    "type": "string",
+    "label": "Hình ảnh chính",
+    "type": "richtext",
     "required": true
   },
   {
     "key": "createdAt",
-    "label": "Created At",
+    "label": "Thời gian tạo",
     "type": "datetime"
   },
   {
     "key": "updatedAt",
-    "label": "Updated At",
+    "label": "Thời gian cập nhật",
     "type": "datetime"
   }
 ]

@@ -4,12 +4,12 @@ import AdminCRUD from '@/components/AdminCRUD'
 
 const fields = [
   { key: 'id', label: 'ID', type: 'string' },
-  { key: 'hotline', label: 'Hotline', type: 'string', required: true },
+  { key: 'hotline', label: 'Số điện thoại', type: 'string', required: true },
   { key: 'email', label: 'Email', type: 'string', required: true },
-  { key: 'workingDays', label: 'Working Days', type: 'string', required: true },
-  { key: 'workingTime', label: 'Working Time', type: 'string', required: true },
-  { key: 'createdAt', label: 'Created At', type: 'datetime' },
-  { key: 'updatedAt', label: 'Updated At', type: 'datetime' }
+  { key: 'workingDays', label: 'Cung cấp dịch vụ', type: 'richtext', required: true },
+  { key: 'workingTime', label: 'Thời gian làm việc', type: 'richtext', required: true },
+  { key: 'createdAt', label: 'Thời gian tạo', type: 'datetime' },
+  { key: 'updatedAt', label: 'Thời gian cập nhật', type: 'datetime' }
 ]
 
 export default function ContactPage() {

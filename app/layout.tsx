@@ -1,6 +1,6 @@
 import './globals.css';
 import { Metadata, Viewport } from 'next';
-import Header from '@/components/Header';
+import ConditionalHeader from '@/components/ConditionalHeader';
 import Footer from '@/components/Footer';
 import FloatingButtons from '@/components/FloatingButtons';
 
@@ -218,7 +218,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-lato antialiased bg-white text-dark-grey overflow-x-hidden">
-        <Header />
+        <ConditionalHeader />
         <main className="min-h-screen">
           {children}
         </main>

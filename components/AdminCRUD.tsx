@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import AdminLayout from './AdminLayout'
+import RichTextEditor from './RichTextEditor'
 
 interface AdminCRUDProps {
   modelName: string
@@ -99,6 +100,12 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
     }
   }
 
+  const decodeHtmlEntities = (text: string) => {
+    const textarea = document.createElement('textarea')
+    textarea.innerHTML = text
+    return textarea.value
+  }
+
   const renderFieldValue = (item: any, field: any) => {
     const value = item[field.key]
     if (field.type === 'boolean') {
@@ -106,6 +113,13 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
     }
     if (field.type === 'datetime') {
       return value ? new Date(value).toLocaleString() : ''
+    }
+    // For rich text fields, strip HTML tags and decode HTML entities for table display
+    if (field.type === 'richtext' || field.key.toLowerCase().includes('description') || field.key.toLowerCase().includes('content') || field.key.toLowerCase().includes('detail')) {
+      if (!value) return ''
+      const strippedHtml = value.replace(/<[^>]*>/g, '')
+      const decodedText = decodeHtmlEntities(strippedHtml)
+      return decodedText.substring(0, 100) + (decodedText.length > 100 ? '...' : '')
     }
     return value || ''
   }
@@ -175,15 +189,21 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
               </div>
             </div>
           ) : (
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="min-w-full divide-y divide-gray-200 table-fixed">
               <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
                 <tr>
-                  {fields.map((field) => (
-                    <th key={field.key} className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  {fields.map((field, index) => (
+                    <th key={field.key} className={`px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider ${
+                      field.key === 'id' ? 'w-20' : 
+                      field.key === 'name' ? 'w-48' :
+                      field.key === 'url' ? 'w-64' :
+                      field.key === 'description' ? 'w-80' :
+                      'w-32'
+                    }`}>
                       {field.label}
                     </th>
                   ))}
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider w-32">
                     Thao tác
                   </th>
                 </tr>
@@ -192,12 +212,14 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
                 {data.map((item, index) => (
                   <tr key={item.id} className={`hover:bg-gray-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
                     {fields.map((field) => (
-                      <td key={field.key} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {renderFieldValue(item, field)}
+                      <td key={field.key} className="px-6 py-4 text-sm text-gray-900 truncate">
+                        <div className="truncate" title={renderFieldValue(item, field)}>
+                          {renderFieldValue(item, field)}
+                        </div>
                       </td>
                     ))}
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-2">
+                    <td className="px-6 py-4 text-sm font-medium">
+                      <div className="flex space-x-2 flex-shrink-0">
                         <button
                           onClick={() => handleEdit(item)}
                           className="inline-flex items-center px-3 py-1.5 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors duration-150"
@@ -229,7 +251,7 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
-          <div className="relative mx-auto max-w-md w-full bg-white rounded-2xl shadow-2xl">
+          <div className="relative mx-auto max-w-4xl w-full bg-white rounded-2xl shadow-2xl">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -273,6 +295,13 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
                         onChange={(e) => setFormData({ ...formData, [field.key]: parseInt(e.target.value) || 0 })}
                         required={field.required}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-150"
+                      />
+                    ) : field.type === 'richtext' || field.key.toLowerCase().includes('description') || field.key.toLowerCase().includes('content') || field.key.toLowerCase().includes('detail') ? (
+                      <RichTextEditor
+                        value={formData[field.key] || ''}
+                        onChange={(content) => setFormData({ ...formData, [field.key]: content })}
+                        placeholder={`Nhập ${field.label.toLowerCase()}...`}
+                        height={250}
                       />
                     ) : (
                       <input

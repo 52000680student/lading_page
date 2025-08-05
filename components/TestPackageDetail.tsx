@@ -188,22 +188,31 @@ const TestPackageDetail: React.FC = () => {
                 Mô tả gói xét nghiệm
               </h2>
               <div className="prose max-w-none">
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  {testPackage.name} là một gói xét nghiệm toàn diện được thiết
-                  kế đặc biệt để
-                  {testPackage.gender &&
-                    ` dành cho ${testPackage.gender.toLowerCase()}`}
-                  {testPackage.targetGroup &&
-                    ` dành cho ${testPackage.targetGroup.toLowerCase()}`}
-                  . Gói xét nghiệm bao gồm {testPackage.indicators} chỉ số quan
-                  trọng giúp đánh giá tình trạng sức khỏe hiện tại của bạn.
-                </p>
-                <p className="text-gray-700 leading-relaxed">
-                  Với công nghệ hiện đại và đội ngũ chuyên gia giàu kinh nghiệm,
-                  chúng tôi cam kết mang đến kết quả chính xác{" "}
-                  {testPackage.resultTime.toLowerCase()} để bạn có thể yên tâm
-                  về tình trạng sức khỏe của mình.
-                </p>
+                {testPackage.description ? (
+                  <div 
+                    className="text-gray-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: testPackage.description }}
+                  />
+                ) : (
+                  <>
+                    <p className="text-gray-700 leading-relaxed mb-4">
+                      {testPackage.name} là một gói xét nghiệm toàn diện được thiết
+                      kế đặc biệt để
+                      {testPackage.gender &&
+                        ` dành cho ${testPackage.gender.toLowerCase()}`}
+                      {testPackage.targetGroup &&
+                        ` dành cho ${testPackage.targetGroup.toLowerCase()}`}
+                      . Gói xét nghiệm bao gồm {testPackage.indicators} chỉ số quan
+                      trọng giúp đánh giá tình trạng sức khỏe hiện tại của bạn.
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">
+                      Với công nghệ hiện đại và đội ngũ chuyên gia giàu kinh nghiệm,
+                      chúng tôi cam kết mang đến kết quả chính xác{" "}
+                      {testPackage.resultTime.toLowerCase()} để bạn có thể yên tâm
+                      về tình trạng sức khỏe của mình.
+                    </p>
+                  </>
+                )}
               </div>
             </motion.div>
 
@@ -417,7 +426,10 @@ const TestPackageDetail: React.FC = () => {
                 <h3 className="chakra-heading-md text-dark-grey mb-2">
                   {step.title}
                 </h3>
-                <p className="text-gray-600">{step.description}</p>
+                <p 
+                  className="text-gray-600"
+                  dangerouslySetInnerHTML={{ __html: step.description }}
+                />
               </motion.div>
             ))}
           </div>
@@ -469,9 +481,10 @@ const TestPackageDetail: React.FC = () => {
                         className="w-full h-full object-contain"
                       />
                     </div>
-                    <p className="text-gray-700 leading-relaxed">
-                      {advantage.title}
-                    </p>
+                    <p 
+                      className="text-gray-700 leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: advantage.title }}
+                    />
                   </div>
                 </div>
               </motion.div>

@@ -11,7 +11,7 @@ const fields = [
   {
     "key": "platform",
     "label": "Platform",
-    "type": "string",
+    "type": "richtext",
     "required": true
   },
   {

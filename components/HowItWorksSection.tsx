@@ -83,12 +83,14 @@ const HowItWorksSection: React.FC = () => {
                 )}
               </div>
 
-              <h3 className="chakra-heading-sm text-dark-grey mb-4">
-                {step.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {step.description}
-              </p>
+              <h3 
+                className="chakra-heading-sm text-dark-grey mb-4"
+                dangerouslySetInnerHTML={{ __html: step.title }}
+              />
+              <p 
+                className="text-gray-600 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: step.description }}
+              />
             </motion.div>
           ))}
         </div>
