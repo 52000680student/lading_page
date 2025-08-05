@@ -1,14 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import labhouseData from "@/data/labhouse-data.json";
+import { getLabhouseData } from "@/lib/data";
 import TestRegistrationModal from "./TestRegistrationModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const HowItWorksSection: React.FC = () => {
-  const processSteps = labhouseData.process;
-
+  const [processSteps, setProcessSteps] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const labhouseData = await getLabhouseData();
+        setProcessSteps(labhouseData.process || []);
+      } catch (error) {
+        console.error('Error fetching process data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleBookTest = () => {
     setIsRegistrationModalOpen(true);
@@ -33,8 +49,14 @@ const HowItWorksSection: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {processSteps.map((step, index) => (
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+            <span className="ml-3 text-gray-600">Đang tải quy trình...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step, index) => (
             <motion.div
               key={step.step}
               className="text-center relative"
@@ -70,6 +92,7 @@ const HowItWorksSection: React.FC = () => {
             </motion.div>
           ))}
         </div>
+        )}
 
         <motion.div
           className="text-center mt-12"

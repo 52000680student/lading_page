@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id           String     @id @default(cuid())
+  hotline      String
+  email        String
+  workingDays  String
+  workingTime  String
+  locations    Location[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Location {
+  id        String  @id
+  address   String
+  hours     String
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId String
+}
+
+model TestPackage {
+  id          String  @id
+  name        String
+  category    String
+  gender      String
+  price       Int
+  indicators  Int
+  resultTime  String
+  icon        String
+  featured    Boolean @default(false)
+  image       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TestCategory {
+  id          String  @id
+  name        String
+  url         String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Process {
+  id          String  @id @default(cuid())
+  step        Int
+  title       String
+  description String
+  icon        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Advantage {
+  id        String  @id
+  title     String
+  icon      String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Navigation {
+  id           String  @id @default(cuid())
+  testPackages String
+  faq          String
+  healthInfo   String
+  about        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model FaqCategory {
+  id        String  @id @default(cuid())
+  name      String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HealthInfoCategory {
+  id        String  @id @default(cuid())
+  name      String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialMedia {
+  id        String  @id @default(cuid())
+  platform  String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LegalPage {
+  id        String  @id @default(cuid())
+  name      String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Images {
+  id          String  @id @default(cuid())
+  banner      String
+  aboutBanner String
+  facility    String
+  mainImage   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AppData {
+  id        String  @id @default(cuid())
+  copyright String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

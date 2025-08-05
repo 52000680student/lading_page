@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { TestPackage } from "@/types";
-import labhouseData from "@/data/labhouse-data.json";
 import { submitRegistration } from "@/utils/api";
 
 interface BookingModalProps {

@@ -1,39 +1,68 @@
-Please analyze the DetailedResultView.tsx file to complete this task for me.
-1. Let's add a download result button in the DetailedResultView.tsx screen. And this button will only be enabled when all the elements in testResults have state = 95 , which means they are signed.
-2. The action when clicking that button will be:
-- Call the following api: {BASE_URL}/api/fr/v1/files/{resultId}/file-names, will get a response like this:
-```
-[
-    {
-        "id": 543,
-        "service": "LA",
-        "module": "TestResult",
-        "itemValue": 414,
-        "itemAction": "Export",
-        "fileName": "414_TQ.pdf",
-        "createdBy": 1000408,
-        "createdDate": "2025-08-04T08:36:16.1543948",
-        "updatedBy": 1000408,
-        "updatedDate": "2025-08-04T08:36:17.4635769",
-        "sendHis": null,
-        "updateHis": null,
-        "hisMessage": null,
-        "status": 9
-    }
-]
-```
-- If the response is not an empty array, the first item will be taken. And the id field will be taken to continue calling this API: /api/la/v1/global/files/{id}/GetFileByIdWithName, this API will have the following response:
-```
-{
-    "fileName": "414_TQ.pdf",
-    "data": {
-        "fileContents": "JVBERi0xLjUNCiXi48/TDQoyIDAgb2JqDQo8PA0KL1R5cGUgL1hPYmplY3QNCi9TdWJ0eXBlIC9JbWFnZQ0"
-        "contentType": "application/pdf",
-        "fileDownloadName": "414_TQ.pdf",
-        "lastModified": null,
-        "entityTag": null,
-        "enableRangeProcessing": false
-    }
-}
-```
-Please use fileContent in the data object to download this pdf file.
+✅ Prompt for AI Agent: Extend Existing Next.js App with Admin Dashboard Using Prisma
+
+📘 Project Context
+
+- Framework: Next.js with TypeScript
+- Database: Prisma (with schema already defined)
+- Data access: via prisma_client
+- Objective: Build an integrated admin dashboard to manage Prisma models
+- Admin auth: Use simple login form with fixed credentials (admin/admin)
+- Folder structure: Extend the current project, do not create a new app
+
+🎯 Tasks
+
+1. 🛠 Add Route /admin to Existing App
+
+   - Create a new route `/admin` in the existing Next.js project
+   - This route will serve as the entry point to the admin dashboard
+
+2. 🔒 Setup Login Authentication
+
+   - Add a login page at `/admin/login`
+   - Simple login form:
+     - Username: `admin`
+     - Password: `admin`
+   - On successful login:
+     - Store a session (use cookies or localStorage)
+     - Redirect to `/admin`
+   - Protect all `/admin/*` routes so that unauthenticated users are redirected to `/admin/login`
+
+3. 🧭 Build Admin Interface at `/admin`
+
+   - Display a sidebar or menu that lists all Prisma models (e.g., User, Post)
+   - Each model name should be a clickable link to `/admin/[model-name]`
+
+4. 📋 CRUD UI for Each Model
+
+   - For each model:
+     - Table view to display entries
+     - Button/modal/form to Create, Edit, Delete entries
+   - Use Prisma client to interact with the database through internal API routes
+
+5. 🔌 API Routes for Data Manipulation
+
+   - Create internal API routes in `/pages/api/admin/[model]/[action].ts` or use App Router if applicable
+     - `GET` - list entries
+     - `POST` - create entry
+     - `PUT` - update entry
+     - `DELETE` - delete entry
+
+6. 🎨 UI/UX
+
+   - Use a UI library like TailwindCSS or Bootstrap to ensure clean and simple design
+   - Show error/success messages after actions (e.g., toast or alert)
+   - Use modals for forms when possible
+
+📦 Deliverables
+
+- `/admin` route added to existing Next.js app
+- Login page with `admin/admin` check
+- Protected admin interface with model menu and CRUD pages
+- API endpoints for data management using Prisma
+- Clean and functional UI for manipulating database entries
+
+✅ Optional Enhancements
+
+- Pagination and search filters in table views
+- Validation on form inputs
+- Role-based access control in the future

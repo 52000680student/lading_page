@@ -8,51 +8,71 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { TestPackage } from "@/types";
 import BookingModal from "@/components/BookingModal";
-
-// Import the data
-import labhouseData from "@/data/labhouse-data.json";
+import { getLabhouseData } from "@/lib/data";
 
 const TestPackageDetail: React.FC = () => {
   const params = useParams();
   const [testPackage, setTestPackage] = useState<TestPackage | null>(null);
   const [relatedPackages, setRelatedPackages] = useState<TestPackage[]>([]);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [advantages, setAdvantages] = useState<any[]>([]);
+  const [processSteps, setProcessSteps] = useState<any[]>([]);
 
   useEffect(() => {
-    if (params.id) {
-      // Find the test package by ID from all categories
-      const allPackages = [
-        ...labhouseData.testPackages.generalCheckup,
-      ];
+    const fetchData = async () => {
+      if (params.id) {
+        try {
+          setLoading(true);
+          const labhouseData = await getLabhouseData();
+          
+          // Find the test package by ID from all categories
+          const allPackages = [
+            ...labhouseData.testPackages.generalCheckup,
+          ];
 
-      const foundPackage = allPackages.find((pkg) => pkg.id === params.id);
+          const foundPackage = allPackages.find((pkg) => pkg.id === params.id);
 
-      if (foundPackage) {
-        // Ensure all required fields have default values
-        const completePackage: TestPackage = {
-          ...foundPackage,
-          icon: foundPackage.icon || "/images/icons/default-test.svg",
-          resultTime: foundPackage.resultTime || "Trong ngày",
-        };
+          if (foundPackage) {
+            // Ensure all required fields have default values
+            const completePackage: TestPackage = {
+              ...foundPackage,
+              icon: foundPackage.icon || "/images/icons/default-test.svg",
+              resultTime: foundPackage.resultTime || "Trong ngày",
+            };
 
-        setTestPackage(completePackage);
+            setTestPackage(completePackage);
 
-        // Find related packages from the same category
-        const related = allPackages
-          .filter(
-            (pkg) =>
-              pkg.category === foundPackage.category &&
-              pkg.id !== foundPackage.id
-          )
-          .slice(0, 3)
-          .map((pkg) => ({
-            ...pkg,
-            icon: pkg.icon || "/images/icons/default-test.svg",
-            resultTime: pkg.resultTime || "Trong ngày",
-          }));
-        setRelatedPackages(related);
+            // Find related packages from the same category
+            const related = allPackages
+              .filter(
+                (pkg) =>
+                  pkg.category === foundPackage.category &&
+                  pkg.id !== foundPackage.id
+              )
+              .slice(0, 3)
+              .map((pkg) => ({
+                ...pkg,
+                icon: pkg.icon || "/images/icons/default-test.svg",
+                resultTime: pkg.resultTime || "Trong ngày",
+              }));
+            setRelatedPackages(related);
+          }
+          
+          // Set advantages data
+          setAdvantages(labhouseData.advantages || []);
+          
+          // Set process steps data
+          setProcessSteps(labhouseData.process || []);
+        } catch (error) {
+          console.error('Error fetching test package data:', error);
+        } finally {
+          setLoading(false);
+        }
       }
-    }
+    };
+
+    fetchData();
   }, [params.id]);
 
   const handleBookTest = () => {
@@ -63,7 +83,7 @@ const TestPackageDetail: React.FC = () => {
     return new Intl.NumberFormat("vi-VN").format(price);
   };
 
-  if (!testPackage) {
+  if (loading || !testPackage) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -383,7 +403,7 @@ const TestPackageDetail: React.FC = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {labhouseData.process.map((step, index) => (
+            {processSteps.map((step: any, index: number) => (
               <motion.div
                 key={step.step}
                 className="text-center"
@@ -424,7 +444,7 @@ const TestPackageDetail: React.FC = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {labhouseData.advantages.map((advantage, index) => (
+            {advantages.map((advantage, index) => (
               <motion.div
                 key={advantage.id}
                 className="bg-white rounded-2xl p-6 shadow-sm"

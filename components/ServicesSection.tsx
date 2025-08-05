@@ -1,29 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, BarChart3 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import BookingModal from "@/components/BookingModal";
 import { TestPackage } from "@/types";
-import labhouseData from "@/data/labhouse-data.json";
+import { getLabhouseData } from "@/lib/data";
 
 const ServicesSection = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedPackageForBooking, setSelectedPackageForBooking] =
     useState<TestPackage | null>(null);
+  const [featuredPackages, setFeaturedPackages] = useState<TestPackage[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Get featured test packages from different categories
-  const featuredPackages: TestPackage[] = [
-    ...labhouseData.testPackages.generalCheckup
-      .filter((pkg) => pkg.featured)
-      .slice(0, 6),
-  ].slice(0, 6).map(pkg => ({
-    ...pkg,
-    icon: pkg.icon || "/images/icons/default-test.svg",
-    resultTime: pkg.resultTime || "Trong ngày",
-  }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const labhouseData = await getLabhouseData();
+        
+        // Get featured test packages from different categories
+        const packages: TestPackage[] = [
+          ...labhouseData.testPackages.generalCheckup
+            .filter((pkg: any) => pkg.featured)
+            .slice(0, 6),
+        ].slice(0, 6).map(pkg => ({
+          ...pkg,
+          icon: pkg.icon || "/images/icons/default-test.svg",
+          resultTime: pkg.resultTime || "Trong ngày",
+        }));
+        
+        setFeaturedPackages(packages);
+      } catch (error) {
+        console.error('Error fetching featured packages:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Đang tải gói xét nghiệm...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("vi-VN").format(price);

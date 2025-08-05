@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, BarChart3, Clock, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import Button from '@/components/ui/Button';
 import BookingModal from '@/components/BookingModal';
 import TestingServicesDetail from '@/components/TestingServicesDetail';
 import { TestPackage } from '@/types';
-import labhouseData from '@/data/labhouse-data.json';
+import { getLabhouseData } from '@/lib/data';
 
 const ServicesPageContent = () => {
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -18,11 +18,39 @@ const ServicesPageContent = () => {
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
     const [selectedPackageForBooking, setSelectedPackageForBooking] = useState<TestPackage | null>(null);
     const [activeMainTab, setActiveMainTab] = useState('packages');
+    const [allPackages, setAllPackages] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    // Get all test packages from different categories
-    const allPackages = [
-        ...labhouseData.testPackages.generalCheckup,
-    ] as any[];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const labhouseData = await getLabhouseData();
+                // Get all test packages from different categories
+                const packages = [
+                    ...labhouseData.testPackages.generalCheckup,
+                ] as any[];
+                setAllPackages(packages);
+            } catch (error) {
+                console.error('Error fetching services data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Đang tải dịch vụ...</p>
+                </div>
+            </div>
+        );
+    }
 
     // Filter packages based on criteria
     const filteredPackages = allPackages.filter(pkg => {

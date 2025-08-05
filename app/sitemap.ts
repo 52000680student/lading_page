@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next'
-import labhouseData from '@/data/labhouse-data.json'
+import { getLabhouseDataServer } from '@/lib/data'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const labhouseData = await getLabhouseDataServer()
   const baseUrl = 'https://mednovanhatrang.com/'
   const currentDate = new Date().toISOString()
 
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   // Dynamic test package routes
-  const testPackageRoutes: MetadataRoute.Sitemap = labhouseData.testPackages.generalCheckup.map((pkg) => ({
+  const testPackageRoutes: MetadataRoute.Sitemap = labhouseData.testPackages.generalCheckup.map((pkg: any) => ({
     url: `${baseUrl}/test-package/${pkg.id}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,

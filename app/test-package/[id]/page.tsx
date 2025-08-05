@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import TestPackageDetail from '@/components/TestPackageDetail';
-import labhouseData from '@/data/labhouse-data.json';
+import { getLabhouseDataServer } from '@/lib/data';
 
 type Props = {
   params: { id: string }
@@ -9,6 +9,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
+  
+  // Fetch data from API or fallback to static
+  const labhouseData = await getLabhouseDataServer();
   
   // Find the test package by ID
   const allPackages = [
@@ -62,11 +65,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
+  const labhouseData = await getLabhouseDataServer();
   const allPackages = [
     ...labhouseData.testPackages.generalCheckup,
   ];
   
-  return allPackages.map((pkg) => ({
+  return allPackages.map((pkg: any) => ({
     id: pkg.id,
   }));
 }
