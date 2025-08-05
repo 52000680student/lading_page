@@ -65,11 +65,11 @@ export const decodeToken = (token: string): DecodedToken | null => {
 };
 
 // Get valid token (check expiration)
-export const getValidToken = (): string | null => {
+export const getValidToken = (): string | "" => {
   const token = getToken();
   if (!token || isTokenExpired(token)) {
     removeToken();
-    return null;
+    return "";
   }
   return token.access_token;
 };

@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { ArrowLeft, ChevronDown, ChevronRight, FileText, Download } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronDown,
+  ChevronRight,
+  FileText,
+  Download,
+} from "lucide-react";
 import { getValidToken } from "@/utils/auth";
 
 // Types
@@ -10,6 +16,7 @@ interface DetailedResultViewProps {
   onBack: () => void;
   showBackButton?: boolean;
   patientInfo?: PatientInfo;
+  isCustomer: boolean | false;
 }
 
 interface ProfileData {
@@ -168,7 +175,7 @@ const transformTestInfoToProfile = (testInfo: TestInfo): TestProfile => ({
 });
 
 // Custom hooks
-const useDetailedResultData = (resultId: number) => {
+const useDetailedResultData = (resultId: number, isCustomer: boolean) => {
   const [data, setData] = useState({
     profileData: [] as ProfileData[],
     testProfiles: [] as TestProfile[],
@@ -184,7 +191,7 @@ const useDetailedResultData = (resultId: number) => {
       setError(null);
 
       const token = getValidToken();
-      if (!token) {
+      if (!token && !isCustomer) {
         throw new Error("No valid token found");
       }
 
@@ -569,9 +576,10 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
   onBack,
   showBackButton = true,
   patientInfo: providedPatientInfo,
+  isCustomer,
 }) => {
   const { testProfiles, testResults, finalComment, loading, error, refetch } =
-    useDetailedResultData(resultId);
+    useDetailedResultData(resultId, isCustomer);
   const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(
     providedPatientInfo || null
   );
@@ -605,7 +613,10 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
 
   // Check if all test results are signed (state = 95)
   const allResultsSigned = useMemo(() => {
-    return testResults.length > 0 && testResults.every(result => result.state === 95);
+    return (
+      testResults.length > 0 &&
+      testResults.every((result) => result.state === 95)
+    );
   }, [testResults]);
 
   // Download result function
@@ -615,7 +626,7 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
     try {
       setIsDownloading(true);
       const token = getValidToken();
-      if (!token) {
+      if (!token && !isCustomer) {
         throw new Error("");
       }
 
@@ -635,7 +646,7 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
       }
 
       const fileNamesData = await fileNamesResponse.json();
-      
+
       if (!Array.isArray(fileNamesData) || fileNamesData.length === 0) {
         throw new Error("Không có file nào để tải xuống");
       }
@@ -654,7 +665,7 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
       }
 
       const fileData = await fileResponse.json();
-      
+
       if (!fileData.data || !fileData.data.fileContents) {
         throw new Error("Không có dữ liệu file hợp lệ");
       }
@@ -663,27 +674,29 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
       const base64Data = fileData.data.fileContents;
       const byteCharacters = atob(base64Data);
       const byteNumbers = new Array(byteCharacters.length);
-      
+
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
-      
+
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: fileData.data.contentType });
-      
+
       // Create download link
       const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.download = fileData.fileName || fileData.data.fileDownloadName || 'result.pdf';
+      link.download =
+        fileData.fileName || fileData.data.fileDownloadName || "result.pdf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-
     } catch (err) {
-      console.error('Download error:', err);
-      alert(`Lỗi tải xuống: ${err instanceof Error ? err.message : 'Có lỗi xảy ra'}`);
+      console.error("Download error:", err);
+      alert(
+        `Lỗi tải xuống: ${err instanceof Error ? err.message : "Có lỗi xảy ra"}`
+      );
     } finally {
       setIsDownloading(false);
     }
@@ -727,7 +740,11 @@ const DetailedResultView: React.FC<DetailedResultViewProps> = ({
                     ? "bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg"
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
-                title={!allResultsSigned ? "Tất cả kết quả phải được ký số (trạng thái 95) để tải xuống" : "Tải xuống kết quả"}
+                title={
+                  !allResultsSigned
+                    ? "Tất cả kết quả phải được ký số (trạng thái 95) để tải xuống"
+                    : "Tải xuống kết quả"
+                }
               >
                 {isDownloading ? (
                   <>
