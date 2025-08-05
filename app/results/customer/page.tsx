@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft, Search } from 'lucide-react';
-import DetailedResultView from '@/components/DetailedResultView';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Search } from "lucide-react";
+import DetailedResultView from "@/components/DetailedResultView";
 
 interface PatientInfo {
   fullName: string;
@@ -26,64 +26,72 @@ interface ApiResponse {
 
 export default function CustomerResultsPage() {
   const router = useRouter();
-  const [lookupValue, setLookupValue] = useState('');
+  const [lookupValue, setLookupValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showDetailedView, setShowDetailedView] = useState(false);
   const [selectedResultId, setSelectedResultId] = useState<number | null>(null);
   const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(null);
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8080";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!lookupValue.trim()) {
-      alert('Vui lòng nhập mã tra cứu');
+      alert("Vui lòng nhập mã tra cứu");
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
       const cipherLookupValue = btoa(lookupValue);
       // Make API call to get result data
-      const response = await fetch(`${baseUrl}/api/la/v1/results-landing-page/${encodeURIComponent(cipherLookupValue)}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
+      const response = await fetch(
+        `${baseUrl}/api/la/v1/results-landing-page/${encodeURIComponent(
+          cipherLookupValue
+        )}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       if (!response.ok) {
-        throw new Error('Không tìm thấy kết quả với mã tra cứu này');
+        throw new Error("Không tìm thấy kết quả với mã tra cứu này");
       }
 
       const data: ApiResponse = await response.json();
-      
+
       // Extract PatientInfo from response
       const extractedPatientInfo: PatientInfo = {
         fullName: data.familyName,
-        address: '', // Not provided in API response
-        sid: '', // Not provided in API response
+        address: "", // Not provided in API response
+        sid: "", // Not provided in API response
         phoneNumber: data.phoneNumber,
-        requestDate: '', // Not provided in API response
+        requestDate: "", // Not provided in API response
         dateOfBirth: data.dateOfBirth,
-        gender: data.gender
+        gender: data.gender,
       };
-      
+
       setSelectedResultId(data.resultId);
       setPatientInfo(extractedPatientInfo);
       setShowDetailedView(true);
-      
     } catch (error) {
-      console.error('Error during lookup:', error);
-      alert(error instanceof Error ? error.message : 'Có lỗi xảy ra trong quá trình tra cứu. Vui lòng thử lại.');
+      console.error("Error during lookup:", error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Có lỗi xảy ra trong quá trình tra cứu. Vui lòng thử lại."
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleBack = () => {
-    router.push('/results');
+    router.push("/results");
   };
 
   const handleBackToList = () => {
@@ -99,6 +107,7 @@ export default function CustomerResultsPage() {
         onBack={handleBackToList}
         showBackButton={true}
         patientInfo={patientInfo || undefined}
+        isCustomer={true}
       />
     );
   }
@@ -132,7 +141,9 @@ export default function CustomerResultsPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
                 <Search className="w-8 h-8 text-green-600" />
               </div>
-              <h2 className="text-xl font-semibold text-gray-900">Tra Cứu Kết Quả</h2>
+              <h2 className="text-xl font-semibold text-gray-900">
+                Tra Cứu Kết Quả
+              </h2>
               <p className="text-gray-600 mt-2">
                 Nhập mã tra cứu được cung cấp khi bạn thực hiện xét nghiệm
               </p>
@@ -140,7 +151,10 @@ export default function CustomerResultsPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="lookupCode" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="lookupCode"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Mã tra cứu
                 </label>
                 <div className="relative">
@@ -157,7 +171,8 @@ export default function CustomerResultsPage() {
                   />
                 </div>
                 <p className="text-sm text-gray-500 mt-2">
-                  Mã tra cứu thường có dạng chữ và số, được in trên phiếu xét nghiệm của bạn
+                  Mã tra cứu thường có dạng chữ và số, được in trên phiếu xét
+                  nghiệm của bạn
                 </p>
               </div>
 
@@ -172,7 +187,7 @@ export default function CustomerResultsPage() {
                     <span>Đang tra cứu...</span>
                   </span>
                 ) : (
-                  'Tra Cứu Kết Quả'
+                  "Tra Cứu Kết Quả"
                 )}
               </button>
             </form>
@@ -184,20 +199,23 @@ export default function CustomerResultsPage() {
               </h3>
               <div className="space-y-2 text-sm text-gray-600">
                 <p>• Mã tra cứu được cung cấp khi bạn hoàn thành xét nghiệm</p>
-                <p>• Nếu không tìm thấy mã tra cứu, vui lòng liên hệ với chúng tôi</p>
+                <p>
+                  • Nếu không tìm thấy mã tra cứu, vui lòng liên hệ với chúng
+                  tôi
+                </p>
                 <p>• Kết quả thường có sẵn sau 24-48 giờ kể từ khi lấy mẫu</p>
               </div>
-              
+
               <div className="flex justify-center space-x-4 mt-4">
-                <a 
-                  href="tel:0843179579" 
+                <a
+                  href="tel:0843179579"
                   className="text-green-600 hover:text-green-800 font-semibold"
                 >
                   📞 0843.179.579
                 </a>
                 <span className="text-gray-400">|</span>
-                <a 
-                  href="mailto:support@mednova.vn" 
+                <a
+                  href="mailto:support@mednova.vn"
                   className="text-green-600 hover:text-green-800 font-semibold"
                 >
                   ✉️ support@mednova.vn
