@@ -73,16 +73,25 @@ export const getValidToken = (): string | "" => {
   }
   return token.access_token;
 };
+// // Get company ID from token
+// export const getCompanyId = (): number | null => {
+//   const token = getValidToken();
+//   if (!token) return null;
+  
+//   const decoded = decodeToken(token);
+  
+//   // Try different possible field names for companyId, including 'company' claim
+//   const companyId = decoded?.company || 0;
+  
+//   return companyId ? Number(companyId) : null;
+// };
 
-// Get company ID from token
-export const getCompanyId = (): number | null => {
+export const getDepartmentId = (): number | null => {
   const token = getValidToken();
   if (!token) return null;
   
   const decoded = decodeToken(token);
+  const departmentId = decoded?.department || 0;
   
-  // Try different possible field names for companyId, including 'company' claim
-  const companyId = decoded?.company || 0;
-  
-  return companyId ? Number(companyId) : null;
+  return departmentId ? Number(departmentId) : null;
 };
