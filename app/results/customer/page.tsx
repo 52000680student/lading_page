@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Search } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 import DetailedResultView from "@/components/DetailedResultView";
 
 interface PatientInfo {
@@ -26,69 +27,98 @@ interface ApiResponse {
 
 export default function CustomerResultsPage() {
   const router = useRouter();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [lookupValue, setLookupValue] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showDetailedView, setShowDetailedView] = useState(false);
   const [selectedResultId, setSelectedResultId] = useState<number | null>(null);
   const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [recaptchaError, setRecaptchaError] = useState<string | null>(null);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8080";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Get reCAPTCHA site key
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  const shouldShowRecaptcha = Boolean(
+    recaptchaSiteKey && recaptchaSiteKey !== "development"
+  );
 
-    if (!lookupValue.trim()) {
-      alert("Vui lòng nhập mã tra cứu");
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    setIsLoading(true);
-
-    try {
-      const cipherLookupValue = btoa(lookupValue);
-      // Make API call to get result data
-      const response = await fetch(
-        `${baseUrl}/api/la/v1/results-landing-page/${encodeURIComponent(
-          cipherLookupValue
-        )}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Không tìm thấy kết quả với mã tra cứu này");
+      if (!lookupValue.trim()) {
+        alert("Vui lòng nhập mã tra cứu");
+        return;
       }
 
-      const data: ApiResponse = await response.json();
+      if (!dateOfBirth.trim()) {
+        alert("Vui lòng nhập ngày sinh");
+        return;
+      }
 
-      // Extract PatientInfo from response
-      const extractedPatientInfo: PatientInfo = {
-        fullName: data.familyName,
-        address: "", // Not provided in API response
-        sid: "", // Not provided in API response
-        phoneNumber: data.phoneNumber,
-        requestDate: "", // Not provided in API response
-        dateOfBirth: data.dateOfBirth,
-        gender: data.gender,
-      };
+      // Check if reCAPTCHA is required and completed
+      if (shouldShowRecaptcha && !recaptchaToken) {
+        alert("Vui lòng hoàn thành xác thực reCAPTCHA trước khi tiếp tục.");
+        return;
+      }
 
-      setSelectedResultId(data.resultId);
-      setPatientInfo(extractedPatientInfo);
-      setShowDetailedView(true);
-    } catch (error) {
-      console.error("Error during lookup:", error);
-      alert(
-        error instanceof Error
-          ? error.message
-          : "Có lỗi xảy ra trong quá trình tra cứu. Vui lòng thử lại."
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      setIsLoading(true);
+
+      try {
+        let tokenToSend = shouldShowRecaptcha
+          ? recaptchaToken
+          : "development-bypass";
+
+        const cipherLookupValue = btoa(lookupValue);
+        // Make API call to get result data with both lookup code and date of birth
+        const response = await fetch(
+          `${baseUrl}/api/la/v1/results-landing-page/${encodeURIComponent(
+            cipherLookupValue
+          )}?dateOfBirth=${encodeURIComponent(dateOfBirth)}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Recaptcha-Token": tokenToSend || "no-token",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Không tìm thấy kết quả với mã tra cứu này");
+        }
+
+        const data: ApiResponse = await response.json();
+
+        // Extract PatientInfo from response
+        const extractedPatientInfo: PatientInfo = {
+          fullName: data.familyName,
+          address: "", // Not provided in API response
+          sid: "", // Not provided in API response
+          phoneNumber: data.phoneNumber,
+          requestDate: "", // Not provided in API response
+          dateOfBirth: data.dateOfBirth,
+          gender: data.gender,
+        };
+
+        setSelectedResultId(data.resultId);
+        setPatientInfo(extractedPatientInfo);
+        setShowDetailedView(true);
+      } catch (error) {
+        console.error("Error during lookup:", error);
+        alert(
+          error instanceof Error
+            ? error.message
+            : "Có lỗi xảy ra trong quá trình tra cứu. Vui lòng thử lại."
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [recaptchaToken, lookupValue, dateOfBirth, baseUrl]
+  );
 
   const handleBack = () => {
     router.push("/results");
@@ -98,6 +128,13 @@ export default function CustomerResultsPage() {
     setShowDetailedView(false);
     setSelectedResultId(null);
     setPatientInfo(null);
+    // Reset reCAPTCHA state
+    setRecaptchaToken(null);
+    setRecaptchaError(null);
+    // Reset reCAPTCHA component
+    if (recaptchaRef.current) {
+      recaptchaRef.current.reset();
+    }
   };
 
   if (showDetailedView && selectedResultId) {
@@ -164,7 +201,7 @@ export default function CustomerResultsPage() {
                     id="lookupCode"
                     value={lookupValue}
                     onChange={(e) => setLookupValue(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent focus:outline-none transition-colors"
                     placeholder="Nhập mã tra cứu (ví dụ: ABC123456)"
                     disabled={isLoading}
                     required
@@ -176,9 +213,75 @@ export default function CustomerResultsPage() {
                 </p>
               </div>
 
+              <div>
+                <label
+                  htmlFor="dateOfBirth"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Ngày sinh
+                </label>
+                <input
+                  type="date"
+                  id="dateOfBirth"
+                  value={dateOfBirth}
+                  onChange={(e) => setDateOfBirth(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent focus:outline-none transition-colors"
+                  disabled={isLoading}
+                  required
+                />
+                <p className="text-sm text-gray-500 mt-2">
+                  Nhập ngày sinh của bạn để xác thực thông tin
+                </p>
+              </div>
+
+              {/* reCAPTCHA v2 */}
+              {shouldShowRecaptcha && (
+                <div className="space-y-3">
+                  <div className="flex justify-center">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={recaptchaSiteKey!}
+                      onChange={(token) => {
+                        setRecaptchaToken(token);
+                        setRecaptchaError(null);
+                      }}
+                      onExpired={() => {
+                        setRecaptchaToken(null);
+                        setRecaptchaError(
+                          "reCAPTCHA đã hết hạn. Vui lòng thực hiện lại."
+                        );
+                      }}
+                      onError={() => {
+                        setRecaptchaToken(null);
+                        setRecaptchaError(
+                          "Có lỗi xảy ra với reCAPTCHA. Vui lòng thử lại."
+                        );
+                      }}
+                      theme="light"
+                      size="normal"
+                    />
+                  </div>
+                  {recaptchaError && (
+                    <p className="text-sm text-red-600 text-center">
+                      {recaptchaError}
+                    </p>
+                  )}
+                  {recaptchaToken && (
+                    <p className="text-sm text-green-600 text-center">
+                      ✓ Xác thực thành công
+                    </p>
+                  )}
+                </div>
+              )}
+
               <button
                 type="submit"
-                disabled={isLoading || !lookupValue.trim()}
+                disabled={
+                  isLoading ||
+                  !lookupValue.trim() ||
+                  !dateOfBirth.trim() ||
+                  (shouldShowRecaptcha && !recaptchaToken)
+                }
                 className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200"
               >
                 {isLoading ? (
