@@ -272,10 +272,10 @@ const ServicesPageContent = () => {
 
                                             <div className="flex-1">
                                                 <h3 className="chakra-heading-sm text-dark-grey mb-2 line-clamp-2">
-                                                    {pkg.name}
+                                                    <span dangerouslySetInnerHTML={{ __html: String(pkg?.name ?? "") }} />
                                                 </h3>
                                                 <span className="inline-block px-3 py-1 bg-primary-100 text-primary-600 text-xs font-medium rounded-full mb-3">
-                                                    {pkg.category}
+                                                    <span dangerouslySetInnerHTML={{ __html: String(pkg?.category ?? "") }} />
                                                 </span>
                                             </div>
                                         </div>
@@ -288,7 +288,7 @@ const ServicesPageContent = () => {
                                             {pkg.resultTime && (
                                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                                     <Clock className="w-4 h-4 text-primary-500" />
-                                                    <span>{pkg.resultTime}</span>
+                                                    <span dangerouslySetInnerHTML={{ __html: String(pkg?.resultTime ?? "") }} />
                                                 </div>
                                             )}
                                             {(pkg.gender || pkg.targetGroup) && (

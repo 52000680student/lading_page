@@ -99,6 +99,103 @@
   .floating-button:active {
     transform: translateY(0) scale(0.98);
   }
+
+  /* Rich text typography */
+  .richtext {
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .richtext>*:first-child {
+    @apply mt-0;
+  }
+
+  .richtext>*:last-child {
+    @apply mb-0;
+  }
+
+  .richtext h1 {
+    @apply font-heading font-bold text-3xl md:text-4xl mt-8 mb-4 text-dark-grey;
+  }
+
+  .richtext h2 {
+    @apply font-heading font-semibold text-2xl md:text-3xl mt-6 mb-3 text-dark-grey;
+  }
+
+  .richtext h3 {
+    @apply font-heading font-semibold text-xl md:text-2xl mt-5 mb-2.5 text-dark-grey;
+  }
+
+  .richtext h4 {
+    @apply font-heading font-medium text-lg md:text-xl mt-4 mb-2 text-dark-grey;
+  }
+
+  .richtext h5 {
+    @apply font-heading font-medium text-base md:text-lg mt-3 mb-1.5 text-dark-grey;
+  }
+
+  .richtext h6 {
+    @apply font-heading font-medium text-sm md:text-base mt-3 mb-1 text-dark-grey uppercase tracking-wide;
+  }
+
+  .richtext p {
+    @apply my-4;
+  }
+
+  .richtext ul {
+    @apply list-disc pl-6 my-4 space-y-2;
+  }
+
+  .richtext ol {
+    @apply list-decimal pl-6 my-4 space-y-2;
+  }
+
+  .richtext li {
+    @apply leading-relaxed;
+  }
+
+  .richtext blockquote {
+    @apply border-l-4 border-primary-200 pl-4 italic text-gray-600 my-6;
+  }
+
+  .richtext a {
+    @apply text-primary-600 underline hover:text-primary-700;
+  }
+
+  .richtext strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .richtext em {
+    @apply italic;
+  }
+
+  .richtext hr {
+    @apply my-8 border-gray-200;
+  }
+
+  .richtext img {
+    @apply rounded-lg my-6;
+  }
+
+  .richtext pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+  }
+
+  .richtext code {
+    @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded;
+  }
+
+  .richtext table {
+    @apply w-full border-collapse text-sm my-6;
+  }
+
+  .richtext th {
+    @apply border-b border-gray-200 text-left font-semibold py-2;
+  }
+
+  .richtext td {
+    @apply border-b border-gray-100 py-2;
+  }
 }
 
 @layer utilities {

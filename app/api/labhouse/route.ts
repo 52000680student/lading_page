@@ -57,7 +57,8 @@ export async function GET() {
           resultTime: pkg.resultTime,
           icon: pkg.icon,
           featured: pkg.featured,
-          image: pkg.image
+          image: pkg.image,
+          description: pkg.description
         }))
       },
       testCategories: testCategories.map(category => ({

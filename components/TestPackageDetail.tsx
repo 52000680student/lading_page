@@ -13,6 +13,7 @@ import { getLabhouseData } from "@/lib/data";
 const TestPackageDetail: React.FC = () => {
   const params = useParams();
   const [testPackage, setTestPackage] = useState<TestPackage | null>(null);
+  console.log("🚀 ~ TestPackageDetail ~ testPackage:", testPackage)
   const [relatedPackages, setRelatedPackages] = useState<TestPackage[]>([]);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -109,9 +110,12 @@ const TestPackageDetail: React.FC = () => {
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <span>Trang chủ</span>
             <span>/</span>
-            <span>{testPackage.category}</span>
+            <span dangerouslySetInnerHTML={{ __html: String(testPackage?.category ?? "") }} />
             <span>/</span>
-            <span className="text-primary-500">{testPackage.name}</span>
+            <span
+              className="text-primary-500"
+              dangerouslySetInnerHTML={{ __html: String(testPackage?.name ?? "") }}
+            />
           </div>
         </div>
       </div>
@@ -137,9 +141,10 @@ const TestPackageDetail: React.FC = () => {
                   />
                 </div>
                 <div className="flex-1">
-                  <h1 className="chakra-heading-lg text-dark-grey mb-4">
-                    {testPackage.name}
-                  </h1>
+                  <h1
+                    className="chakra-heading-lg text-dark-grey mb-4"
+                    dangerouslySetInnerHTML={{ __html: String(testPackage?.name ?? "") }}
+                  />
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="flex items-center gap-2">
                       <BarChart3 className="w-5 h-5 text-primary-500" />
@@ -151,7 +156,7 @@ const TestPackageDetail: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <Clock className="w-5 h-5 text-primary-500" />
                       <span className="text-sm text-gray-600">
-                        <strong>{testPackage.resultTime}</strong>
+                        <strong dangerouslySetInnerHTML={{ __html: String(testPackage?.resultTime ?? "") }} />
                       </span>
                     </div>
                     {(testPackage.gender || testPackage.targetGroup) && (
@@ -187,33 +192,29 @@ const TestPackageDetail: React.FC = () => {
               <h2 className="chakra-heading-md text-dark-grey mb-6">
                 Mô tả gói xét nghiệm
               </h2>
-              <div className="prose max-w-none">
-                {testPackage.description ? (
-                  <div 
-                    className="text-gray-700 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: testPackage.description }}
-                  />
-                ) : (
-                  <>
-                    <p className="text-gray-700 leading-relaxed mb-4">
-                      {testPackage.name} là một gói xét nghiệm toàn diện được thiết
-                      kế đặc biệt để
-                      {testPackage.gender &&
-                        ` dành cho ${testPackage.gender.toLowerCase()}`}
-                      {testPackage.targetGroup &&
-                        ` dành cho ${testPackage.targetGroup.toLowerCase()}`}
-                      . Gói xét nghiệm bao gồm {testPackage.indicators} chỉ số quan
-                      trọng giúp đánh giá tình trạng sức khỏe hiện tại của bạn.
-                    </p>
-                    <p className="text-gray-700 leading-relaxed">
-                      Với công nghệ hiện đại và đội ngũ chuyên gia giàu kinh nghiệm,
-                      chúng tôi cam kết mang đến kết quả chính xác{" "}
-                      {testPackage.resultTime.toLowerCase()} để bạn có thể yên tâm
-                      về tình trạng sức khỏe của mình.
-                    </p>
-                  </>
-                )}
-              </div>
+              {testPackage.description ? (
+                <div
+                  className="richtext"
+                  dangerouslySetInnerHTML={{ __html: String(testPackage.description ?? "") }}
+                />
+              ) : (
+                <>
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    {testPackage.name} là một gói xét nghiệm toàn diện được thiết
+                    kế đặc biệt để
+                    {testPackage.gender && ` dành cho ${testPackage.gender.toLowerCase()}`}
+                    {testPackage.targetGroup && ` dành cho ${testPackage.targetGroup.toLowerCase()}`}
+                    . Gói xét nghiệm bao gồm {testPackage.indicators} chỉ số quan
+                    trọng giúp đánh giá tình trạng sức khỏe hiện tại của bạn.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Với công nghệ hiện đại và đội ngũ chuyên gia giàu kinh nghiệm,
+                    chúng tôi cam kết mang đến kết quả chính xác{" "}
+                    {testPackage.resultTime.toLowerCase()} để bạn có thể yên tâm
+                    về tình trạng sức khỏe của mình.
+                  </p>
+                </>
+              )}
             </motion.div>
 
             {/* Package Image */}
@@ -323,7 +324,7 @@ const TestPackageDetail: React.FC = () => {
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-gray-100">
                   <span className="text-gray-600">Thời gian có kết quả:</span>
-                  <span className="font-medium">{testPackage.resultTime}</span>
+                  <span className="font-medium" dangerouslySetInnerHTML={{ __html: String(testPackage?.resultTime ?? "") }} />
                 </div>
                 {testPackage.gender && (
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
@@ -380,9 +381,9 @@ const TestPackageDetail: React.FC = () => {
                           className="w-12 h-12 rounded-lg"
                         />
                         <div className="flex-1">
-                          <h4 className="font-medium text-sm text-gray-900 mb-1 line-clamp-2">
-                            {pkg.name}
-                          </h4>
+                          <h4 className="font-medium text-sm text-gray-900 mb-1 line-clamp-2" 
+                            dangerouslySetInnerHTML={{ __html: String(pkg?.name ?? "") }}
+                          />
                           <p className="text-primary-500 font-bold text-sm">
                             {formatPrice(pkg.price)} VND
                           </p>
@@ -423,9 +424,10 @@ const TestPackageDetail: React.FC = () => {
                 <div className="w-16 h-16 mx-auto mb-4 bg-primary-50 rounded-full flex items-center justify-center">
                   <img src={step.icon} alt={step.title} className="w-8 h-8" />
                 </div>
-                <h3 className="chakra-heading-md text-dark-grey mb-2">
-                  {step.title}
-                </h3>
+                <h3 
+                  className="chakra-heading-md text-dark-grey mb-2"
+                  dangerouslySetInnerHTML={{ __html: String(step?.title ?? "") }}
+                />
                 <p 
                   className="text-gray-600"
                   dangerouslySetInnerHTML={{ __html: step.description }}

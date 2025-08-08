@@ -116,10 +116,10 @@ const ServicesSection = () => {
 
               <div className="mb-4">
                 <span className="inline-block px-3 py-1 bg-primary-100 text-primary-600 text-xs font-medium rounded-full mb-3">
-                  {pkg.category}
+                  <span dangerouslySetInnerHTML={{ __html: String(pkg?.category ?? "") }} />
                 </span>
                 <h3 className="chakra-heading-sm text-dark-grey mb-3 group-hover:text-primary-500 transition-colors">
-                  {pkg.name}
+                  <span dangerouslySetInnerHTML={{ __html: String(pkg?.name ?? "") }} />
                 </h3>
               </div>
 
@@ -131,7 +131,7 @@ const ServicesSection = () => {
                 {pkg.resultTime && (
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Clock className="w-4 h-4 text-primary-500" />
-                    <span>{pkg.resultTime}</span>
+                    <span dangerouslySetInnerHTML={{ __html: String(pkg?.resultTime ?? "") }} />
                   </div>
                 )}
                 {pkg.gender && (

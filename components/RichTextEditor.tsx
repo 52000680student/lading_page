@@ -10,11 +10,11 @@ interface RichTextEditorProps {
   height?: number
 }
 
-export default function RichTextEditor({ 
-  value, 
-  onChange, 
-  placeholder = 'Nhập nội dung...', 
-  height = 300 
+export default function RichTextEditor({
+  value,
+  onChange,
+  placeholder = 'Nhập nội dung...',
+  height = 300
 }: RichTextEditorProps) {
   const editorRef = useRef<any>(null)
 
@@ -26,7 +26,7 @@ export default function RichTextEditor({
     <div className="rich-text-editor">
       <Editor
         apiKey={process.env.NEXT_PUBLIC_TINY_CLOUD_KEY}
-        onInit={(evt, editor) => editorRef.current = editor}
+        onInit={(evt: unknown, editor: any) => { editorRef.current = editor }}
         value={value}
         onEditorChange={handleEditorChange}
         init={{
@@ -38,16 +38,50 @@ export default function RichTextEditor({
             'insertdatetime media table paste code help wordcount'
           ],
           toolbar:
-            'undo redo | blocks | ' +
-            'bold italic forecolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help',
+            'undo redo | blocks | bold italic forecolor | image media link | ' +
+            'alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | removeformat | help',
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
           placeholder: placeholder,
           branding: false,
           promotion: false,
           skin: 'oxide',
-          content_css: 'default'
+          content_css: 'default',
+
+          // Enable pasting images as base64
+          paste_data_images: true,
+          automatic_uploads: true,
+          image_advtab: true,
+
+          // Use a custom file picker to convert selected image to base64 data URL
+          file_picker_types: 'image',
+          file_picker_callback: (cb: (url: string, meta?: any) => void) => {
+            const input = document.createElement('input')
+            input.type = 'file'
+            input.accept = 'image/*'
+
+            input.onchange = () => {
+              const file = input.files && input.files[0]
+              if (!file) return
+
+              const reader = new FileReader()
+              reader.onload = () => {
+                const result = reader.result as string
+                cb(result, { title: file.name })
+              }
+              reader.readAsDataURL(file)
+            }
+
+            input.click()
+          },
+
+          // Handle drag-drop or image dialog uploads by returning a base64 data URL
+          images_upload_handler: (blobInfo: any) =>
+            new Promise((resolve) => {
+              const base64 = blobInfo.base64()
+              const mime = blobInfo.blob().type
+              resolve(`data:${mime};base64,${base64}`)
+            }),
         }}
       />
     </div>
