@@ -13,6 +13,7 @@ const fields = [
   { key: 'icon', label: 'Icon', type: 'string', required: true },
   { key: 'featured', label: 'Featured', type: 'boolean' },
   { key: 'image', label: 'Image', type: 'string', required: true },
+  { key: 'description', label: 'Description', type: 'richtext' },
   { key: 'createdAt', label: 'Created At', type: 'datetime' },
   { key: 'updatedAt', label: 'Updated At', type: 'datetime' }
 ]
