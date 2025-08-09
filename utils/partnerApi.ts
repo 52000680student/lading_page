@@ -44,7 +44,7 @@ interface ResultsParams {
   size?: number;
   start?: string;
   end?: string;
-  companyId: number;
+  departmentId: number;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:8080';
@@ -82,7 +82,7 @@ export const fetchResults = async (params: ResultsParams, token: string): Promis
   searchParams.append('size', (params.size || 50).toString());
   if (params.start) searchParams.append('start', params.start);
   if (params.end) searchParams.append('end', params.end);
-  searchParams.append('companyId', params.companyId.toString());
+  searchParams.append('departmentId', params.departmentId.toString());
 
   const response = await fetch(`${BASE_URL}/api/la/v1/results-landing-page?${searchParams}`, {
     method: 'GET',
