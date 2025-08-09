@@ -1,5 +1,0 @@
-Dưới đây là các vấn đề mà trang web đang gặp phải:
-1. Khi modal tại components/AdminCRUD.tsx, nếu như các trường dài quá thì modal hiển thị sẽ bị lỗi tràn màn hình, và không thể kéo tới các trường nằm ngoài màn hình (bạn có thể xem hình đính kèm)
-2. Tại modal TestPackage ở prisma/schema.prisma, hãy thêm giúp tôi một trường description, để hiển hiện chi tiết cho gói xét nghiệm đó và đồng bộ lên prisma client
-3. Thêm trường description vào phần app/admin/testpackage, với loại là richtext
-4. Tất cả các trường mà ở app/admin có dạng là richtext, thì hãy sửa lại ở phần hiện thị thành: dangerouslySetInnerHTML={{ __html: ... }} để có thể hiển thị được mà không bị lỗi font
