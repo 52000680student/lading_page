@@ -47,7 +47,7 @@ const fields = [
 export default function ImagesPage() {
   return (
     <AdminCRUD
-      modelName="Images"
+      modelName="hình ảnh"
       modelPath="images"
       fields={fields}
     />

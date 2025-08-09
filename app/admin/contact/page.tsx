@@ -15,7 +15,7 @@ const fields = [
 export default function ContactPage() {
   return (
     <AdminCRUD
-      modelName="Contact"
+      modelName="liên hệ"
       modelPath="contact"
       fields={fields}
     />

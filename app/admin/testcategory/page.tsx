@@ -40,7 +40,7 @@ const fields = [
 export default function TestCategoryPage() {
   return (
     <AdminCRUD
-      modelName="Test Category"
+      modelName="danh mục xét nghiệm"
       modelPath="testcategory"
       fields={fields}
     />

@@ -21,7 +21,7 @@ const fields = [
 export default function TestPackagePage() {
   return (
     <AdminCRUD
-      modelName="Test Package"
+      modelName="gói xét nghiệm"
       modelPath="testpackage"
       fields={fields}
     />

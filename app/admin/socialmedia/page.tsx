@@ -35,7 +35,7 @@ const fields = [
 export default function SocialMediaPage() {
   return (
     <AdminCRUD
-      modelName="Social Media"
+      modelName="mạng xã hội"
       modelPath="socialmedia"
       fields={fields}
     />

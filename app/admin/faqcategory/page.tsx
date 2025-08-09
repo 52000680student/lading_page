@@ -35,7 +35,7 @@ const fields = [
 export default function FAQCategoryPage() {
   return (
     <AdminCRUD
-      modelName="FAQ Category"
+      modelName="danh mục FAQ"
       modelPath="faqcategory"
       fields={fields}
     />

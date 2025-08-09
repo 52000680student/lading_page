@@ -29,7 +29,7 @@ const fields = [
 export default function AppDataPage() {
   return (
     <AdminCRUD
-      modelName="App Data"
+      modelName="dữ liệu ứng dụng"
       modelPath="appdata"
       fields={fields}
     />

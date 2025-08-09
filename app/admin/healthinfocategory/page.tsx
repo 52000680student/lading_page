@@ -35,7 +35,7 @@ const fields = [
 export default function HealthInfoCategoryPage() {
   return (
     <AdminCRUD
-      modelName="Health Info Category"
+      modelName="danh mục thông tin sức khỏe"
       modelPath="healthinfocategory"
       fields={fields}
     />

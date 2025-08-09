@@ -35,7 +35,7 @@ const fields = [
 export default function LegalPagePage() {
   return (
     <AdminCRUD
-      modelName="Legal Page"
+      modelName="trang pháp lý"
       modelPath="legalpage"
       fields={fields}
     />

@@ -47,7 +47,7 @@ const fields = [
 export default function NavigationPage() {
   return (
     <AdminCRUD
-      modelName="Navigation"
+      modelName="điều hướng"
       modelPath="navigation"
       fields={fields}
     />

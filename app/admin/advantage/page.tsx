@@ -41,7 +41,7 @@ const fields = [
 export default function AdvantagePage() {
   return (
     <AdminCRUD
-      modelName="Advantage"
+      modelName="Ưu điểm"
       modelPath="advantage"
       fields={fields}
     />

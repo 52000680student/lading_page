@@ -31,7 +31,7 @@ const fields = [
 export default function LocationPage() {
   return (
     <AdminCRUD
-      modelName="Location"
+      modelName="địa điểm"
       modelPath="location"
       fields={fields}
     />
