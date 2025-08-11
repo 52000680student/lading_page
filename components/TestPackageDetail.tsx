@@ -13,7 +13,6 @@ import { getLabhouseData } from "@/lib/data";
 const TestPackageDetail: React.FC = () => {
   const params = useParams();
   const [testPackage, setTestPackage] = useState<TestPackage | null>(null);
-  console.log("🚀 ~ TestPackageDetail ~ testPackage:", testPackage)
   const [relatedPackages, setRelatedPackages] = useState<TestPackage[]>([]);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -26,7 +25,6 @@ const TestPackageDetail: React.FC = () => {
         try {
           setLoading(true);
           const labhouseData = await getLabhouseData();
-          
           // Find the test package by ID from all categories
           const allPackages = [
             ...labhouseData.testPackages.generalCheckup,
@@ -59,10 +57,10 @@ const TestPackageDetail: React.FC = () => {
               }));
             setRelatedPackages(related);
           }
-          
+
           // Set advantages data
           setAdvantages(labhouseData.advantages || []);
-          
+
           // Set process steps data
           setProcessSteps(labhouseData.process || []);
         } catch (error) {
@@ -381,7 +379,7 @@ const TestPackageDetail: React.FC = () => {
                           className="w-12 h-12 rounded-lg"
                         />
                         <div className="flex-1">
-                          <h4 className="font-medium text-sm text-gray-900 mb-1 line-clamp-2" 
+                          <h4 className="font-medium text-sm text-gray-900 mb-1 line-clamp-2"
                             dangerouslySetInnerHTML={{ __html: String(pkg?.name ?? "") }}
                           />
                           <p className="text-primary-500 font-bold text-sm">
@@ -424,11 +422,11 @@ const TestPackageDetail: React.FC = () => {
                 <div className="w-16 h-16 mx-auto mb-4 bg-primary-50 rounded-full flex items-center justify-center">
                   <img src={step.icon} alt={step.title} className="w-8 h-8" />
                 </div>
-                <h3 
+                <h3
                   className="chakra-heading-md text-dark-grey mb-2"
                   dangerouslySetInnerHTML={{ __html: String(step?.title ?? "") }}
                 />
-                <p 
+                <p
                   className="text-gray-600"
                   dangerouslySetInnerHTML={{ __html: step.description }}
                 />
@@ -483,7 +481,7 @@ const TestPackageDetail: React.FC = () => {
                         className="w-full h-full object-contain"
                       />
                     </div>
-                    <p 
+                    <p
                       className="text-gray-700 leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: advantage.title }}
                     />
