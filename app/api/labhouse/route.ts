@@ -1,5 +1,20 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import type {
+  Contact,
+  Location,
+  TestPackage,
+  TestCategory,
+  Process as ProcessModel,
+  Advantage,
+  Navigation,
+  FaqCategory,
+  HealthInfoCategory,
+  SocialMedia,
+  LegalPage,
+  Images,
+  AppData,
+} from '@prisma/client'
 
 export async function GET() {
   try {
@@ -40,14 +55,14 @@ export async function GET() {
           days: contact.workingDays,
           time: contact.workingTime
         },
-        locations: contact.locations.map(location => ({
+        locations: contact.locations.map((location: Location) => ({
           id: location.id,
           address: location.address,
           hours: location.hours
         }))
       } : null,
       testPackages: {
-        generalCheckup: testPackages.map(pkg => ({
+        generalCheckup: testPackages.map((pkg: TestPackage) => ({
           id: pkg.id,
           name: pkg.name,
           category: pkg.category,
@@ -61,19 +76,19 @@ export async function GET() {
           description: pkg.description
         }))
       },
-      testCategories: testCategories.map(category => ({
+      testCategories: testCategories.map((category: TestCategory) => ({
         id: category.id,
         name: category.name,
         url: category.url,
         description: category.description
       })),
-      process: process.map(step => ({
+      process: process.map((step: ProcessModel) => ({
         step: step.step,
         title: step.title,
         description: step.description,
         icon: step.icon
       })),
-      advantages: advantages.map(advantage => ({
+      advantages: advantages.map((advantage: Advantage) => ({
         id: advantage.id,
         title: advantage.title,
         icon: advantage.icon,
@@ -85,19 +100,19 @@ export async function GET() {
         healthInfo: navigation.healthInfo,
         about: navigation.about
       } : null,
-      faqCategories: faqCategories.map(faq => ({
+      faqCategories: faqCategories.map((faq: FaqCategory) => ({
         name: faq.name,
         url: faq.url
       })),
-      healthInfoCategories: healthInfoCategories.map(health => ({
+      healthInfoCategories: healthInfoCategories.map((health: HealthInfoCategory) => ({
         name: health.name,
         url: health.url
       })),
-      socialMedia: socialMedia.map(social => ({
+      socialMedia: socialMedia.map((social: SocialMedia) => ({
         platform: social.platform,
         url: social.url
       })),
-      legalPages: legalPages.map(legal => ({
+      legalPages: legalPages.map((legal: LegalPage) => ({
         name: legal.name,
         url: legal.url
       })),
