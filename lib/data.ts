@@ -3,7 +3,13 @@ import labhouseDataStatic from '@/data/labhouse-data.json'
 
 let cachedData: any = null
 let cacheTimestamp: number = 0
-const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+const CACHE_DURATION = 30 * 1000 // 30 seconds for better development experience
+
+// Function to clear cache manually
+export function clearLabhouseDataCache() {
+  cachedData = null
+  cacheTimestamp = 0
+}
 
 export async function getLabhouseData() {
   // Check if we have cached data that's still fresh
@@ -12,11 +18,14 @@ export async function getLabhouseData() {
   }
 
   try {
-    // Try to fetch from API first
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_PRISMA || 'http://localhost:3000'}/api/labhouse`, {
-      next: { revalidate: 300 }, // Revalidate every 5 minutes
+    // Always use same-origin relative URL to avoid port/domain mismatches
+    const response = await fetch(`/api/labhouse`, {
+      cache: 'no-store', // Disable Next.js fetch cache for fresh data
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       },
     })
     
@@ -43,14 +52,17 @@ export async function getLabhouseData() {
 // Server-side function for use in server components and API routes
 export async function getLabhouseDataServer() {
   try {
-    // For server-side, we can directly use the API route logic
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}/api/labhouse`, {
+    // Use same-origin relative fetch on server as well
+    const response = await fetch(`/api/labhouse`, {
       cache: 'no-store', // Always fetch fresh data on server
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       },
       // Add timeout to prevent hanging
+      // @ts-ignore - AbortSignal.timeout is available in runtime
       signal: AbortSignal.timeout(10000), // 10 second timeout
     })
     
