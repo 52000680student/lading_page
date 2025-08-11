@@ -16,6 +16,9 @@ import type {
   AppData,
 } from '@prisma/client'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export async function GET() {
   try {
     // Fetch all data from database
@@ -125,7 +128,14 @@ export async function GET() {
       copyright: appData?.copyright || ''
     }
 
-    return NextResponse.json(responseData)
+    return NextResponse.json(responseData, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store'
+      }
+    })
   } catch (error) {
     console.error('Error fetching labhouse data:', error)
     return NextResponse.json(

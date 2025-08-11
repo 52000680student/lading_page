@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { revalidateTag, revalidatePath } from 'next/cache'
 
 // Model mapping to Prisma client methods
 const modelMap: { [key: string]: any } = {
@@ -57,6 +58,15 @@ export async function POST(
 
     const body = await request.json()
     const data = await modelClient.create({ data: body })
+
+    // Revalidate labhouse API and relevant paths
+    try {
+      revalidatePath('/api/labhouse')
+      revalidatePath('/')
+      revalidatePath('/services')
+    } catch (e) {
+      console.warn('Revalidation after create failed:', e)
+    }
     
     return NextResponse.json(data)
   } catch (error) {
@@ -107,6 +117,15 @@ export async function PUT(
       where: { id },
       data: updateData
     })
+
+    // Revalidate labhouse API and relevant paths
+    try {
+      revalidatePath('/api/labhouse')
+      revalidatePath('/')
+      revalidatePath('/services')
+    } catch (e) {
+      console.warn('Revalidation after update failed:', e)
+    }
     
     return NextResponse.json(data)
   } catch (error) {
@@ -136,6 +155,15 @@ export async function DELETE(
     }
     
     await modelClient.delete({ where: { id } })
+
+    // Revalidate labhouse API and relevant paths
+    try {
+      revalidatePath('/api/labhouse')
+      revalidatePath('/')
+      revalidatePath('/services')
+    } catch (e) {
+      console.warn('Revalidation after delete failed:', e)
+    }
     
     return NextResponse.json({ success: true })
   } catch (error) {
