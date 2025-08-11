@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import AdminLayout from './AdminLayout'
 import RichTextEditor from './RichTextEditor'
+import { clearLabhouseDataCache } from '@/lib/data'
 
 interface AdminCRUDProps {
   modelName: string
@@ -65,6 +66,7 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
       
       if (response.ok) {
         showMessage('success', 'Xóa mục thành công')
+        clearLabhouseDataCache()
         fetchData()
       } else {
         showMessage('error', 'Không thể xóa mục')
@@ -91,6 +93,7 @@ export default function AdminCRUD({ modelName, modelPath, fields }: AdminCRUDPro
       if (response.ok) {
         showMessage('success', `${editingItem ? 'Cập nhật' : 'Tạo'} mục thành công`)
         setShowModal(false)
+        clearLabhouseDataCache()
         fetchData()
       } else {
         showMessage('error', `Không thể ${editingItem ? 'cập nhật' : 'tạo'} mục`)
